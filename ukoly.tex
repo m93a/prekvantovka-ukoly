@@ -1,0 +1,452 @@
+% !TEX program = xelatex
+
+\documentclass[10pt,a4paper]{article}
+\usepackage[top = 1.5cm, bottom = 1.5cm, left = 1.5cm, right = 1.5cm]{geometry}
+
+\usepackage{titling}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{csvsimple}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{units}
+\usepackage{bm}
+\delimitershortfall=-1pt
+
+\usepackage{mathtools}
+\usepackage{accents}
+\usepackage{calc}
+
+% no page break
+\newenvironment{absolutelynopagebreak}
+  {\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd}
+
+
+% redefine \sqrt
+\usepackage{letltxmacro}
+\makeatletter
+\let\oldr@@t\r@@t
+\def\r@@t#1#2{%
+\setbox0=\hbox{$\oldr@@t#1{#2\,}$}\dimen0=\ht0
+\advance\dimen0-0.2\ht0
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+\LetLtxMacro{\oldsqrt}{\sqrt}
+\renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2\,}\,}
+\makeatother
+
+% redefine \hbar
+\LetLtxMacro{\oldhbar}{\hbar}
+\renewcommand*{\hbar}{{\mathpalette\hbaraux\relax\mathrm{h}}}
+\newcommand*{\hbaraux}[2]{\sbox0{\mathsurround=0pt$#1\mathchar'26$}\mkern-1mu\lower.07\ht0\box0\mkern-8mu}
+
+\def\ph{\phantom}
+\def\vph{\vphantom}
+\def\hph{\hphantom}
+\def\rzw{\mathrlap}
+\def\lzw{\mathllap}
+\def\czw{\mathclap}
+
+\newcommand{\nph}[1]{\settowidth{\dimen0}{#1}\hspace*{-\dimen0}}
+
+\newcommand*{\mask}[2]{%
+    \mathord{\makebox[\widthof{\(#1\)}]{\(#2\)}}%
+}
+
+\def\?{\mathit{?}}
+
+\newcommand{\comm}[2]{\left[ #1, #2 \right]}
+\newcommand{\const}[1]{\text{#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\mat}[1]{
+    \begin{pmatrix}
+        #1
+    \end{pmatrix}
+}
+
+\newcommand{\mata}[2]{
+    \left(
+    \begin{array}{@{}#1@{}}
+        #2
+    \end{array}
+    \right)
+}
+
+\newcommand{\smat}[2][1]{
+    \scalebox{#1}{$\mat{#2}$}
+}
+
+\renewcommand{\d}[1]{\;\const{d}#1}
+\newcommand{\dd}[2]{\frac{\const{d} #1}{\const{d} #2} \;}
+\newcommand{\pd}[2]{\frac{\partial  #1}{\partial  #2} \;}
+
+\newcommand{\bra}[1]{\left< #1 \right|}
+\newcommand{\ket}[1]{\left| #1 \right>}
+\newcommand{\braket}[2]{\left< #1 \middle| #2 \right>}
+
+\newcommand{\e}[1]{\const{e}^{#1}}
+\renewcommand{\i}{\const{i}}
+
+\newcommand{\bigdot}[1]{\accentset{\bullet}{#1}}
+
+
+\def\kzero{\ket{\mask{+}{0}}}
+\def\kone{\ket{\mask{+}{1}}}
+\def\ktwo{\ket{\mask{+}{2}}}
+\def\kplus{\ket{+}}
+\def\kminus{\ket{-}}
+
+\def\bone{\bra{\mask{+}{1}}}
+\def\btwo{\bra{\mask{+}{2}}}
+
+\begin{document}
+
+\title{Úvod do kvantové mechaniky: Domácí úkoly}
+\author{Michal Grňo}
+\date{\today}
+
+\maketitle
+
+\section{Úloha č. 2}
+
+\subsection{Zadání}
+V roce 2084 měří pozorovatel qubity v bázi
+\begin{equation*}
+    \kplus = \frac{1}{\oldsqrt{2}} \left(\kzero + \kone\right),
+    \hspace{2em}
+    \kminus = \frac{1}{\oldsqrt{2}} \left(\kzero - \kone\right)
+\end{equation*}
+Jaká je pravděpodobnost, že naměří $\kplus\kplus\kplus$, a jaká je pravděpodobnost že naměří $\kminus\kminus\kminus$ když měří qubity ve stavu
+\begin{equation*}
+    \ket{\psi} = \frac{1}{\oldsqrt{3}} \kone\kzero\kone + \frac{2}{\oldsqrt{3}} \kzero\kone\kzero
+\end{equation*}
+
+\subsection{Řešení}
+Zjevně ani v roce 2084 ještě standardy nevyžadují uvádět normalizované stavy. Škoda, určitě by to zabránilo mnohým překlepům. Každopádně si stav normalizujeme:
+\begin{align*}
+    \ket{\psi} := \frac{1}{\norm{\ket{\psi}}} \ket{\psi} = \frac{\oldsqrt{3}}{\oldsqrt{1+2^2}} \ket{\psi} = \frac{1}{\oldsqrt{5}} \kone\kzero\kone + \frac{2}{\oldsqrt{5}} \kzero\kone\kzero
+\end{align*}
+Dále si vyjádříme bázi $\kzero,\kone$ pomocí báze $\kplus,\kminus$.
+\begin{align*}
+    \kplus &= \frac{1}{\oldsqrt{2}} \left(\kzero + \kone\right),
+    &
+    \kminus &= \frac{1}{\oldsqrt{2}} \left(\kzero - \kone\right),
+    \\[10pt]
+    \kplus + \kminus &= \frac{2}{\oldsqrt{2}} \kzero,
+    &
+    \kplus - \kminus &= \frac{2}{\oldsqrt{2}} \kone,
+    \\[10pt]
+    \kzero &= \frac{1}{\oldsqrt{2}} \left(\kplus + \kminus\right),
+    &
+    \kone &= \frac{1}{\oldsqrt{2}} \left(\kplus - \kminus\right).
+\end{align*}
+Nyní si vyjádříme stav $\ket{\psi}$ v bázi $\kplus, \kminus$, budou nás ovšem zajímat pouze členy s $\kplus\kplus\kplus$ a $\kminus\kminus\kminus$, ostatní schováme za elipsou „$(\dots)$“.
+\begingroup
+\allowdisplaybreaks
+\begin{align*}
+    \ket{\psi}
+    &= \frac{1}{\oldsqrt{5}} \kone\kzero\kone
+    \;+\; \frac{2}{\oldsqrt{5}} \kzero\kone\kzero
+    \\[5pt]
+    &= \frac{1}{\oldsqrt{5}} \kone\kzero \, \frac{1}{\oldsqrt{2}} \left(\kplus - \kminus\right)
+    \;+\; \frac{2}{\oldsqrt{5}} \kzero\kone \, \frac{1}{\oldsqrt{2}} \left(\kplus + \kminus\right)
+    \\[5pt]
+    &= \frac{1}{\oldsqrt{10}} \left(
+        \big( 2\kzero\kone + \kone\kzero \big)\kplus +
+        \big( 2\kzero\kone - \kone\kzero \big)\kminus
+    \right)
+    \\[5pt]
+    &= \frac{1}{\oldsqrt{10}} \bigg(
+        \big( 2\kzero\, \frac{1}{\oldsqrt{2}} \left(\kplus - \kminus\right) + \kone\, \frac{1}{\oldsqrt{2}} \left(\kplus + \kminus\right) \big)\kplus +
+        \\ &\hspace{4em}
+        + \big( 2\kzero\, \frac{1}{\oldsqrt{2}} \left(\kplus - \kminus\right) - \kone\, \frac{1}{\oldsqrt{2}} \left(\kplus + \kminus\right) \big)\kminus
+    \bigg)
+    \\[5pt]
+    &= \frac{1}{\oldsqrt{20}} \bigg(
+        2 \kzero\kplus\kplus + \kone\kplus\kplus
+        - 2 \kzero\kminus\kminus - \kone\kminus\kminus
+    \bigg) + (\dots)
+    \\[5pt]
+    &= \frac{1}{\oldsqrt{20}} \bigg(
+        2 \frac{1}{\oldsqrt{2}} \big(\kplus + \kminus\big)\kplus\kplus
+        + \frac{1}{\oldsqrt{2}} \big(\kplus - \kminus\big)\kplus\kplus
+        \\ &\hspace{4em}
+        - 2 \frac{1}{\oldsqrt{2}} \big(\kplus + \kminus\big)\kminus\kminus
+        - \frac{1}{\oldsqrt{2}} \big(\kplus - \kminus\big)\kminus\kminus
+    \bigg) + (\dots)
+    \\[5pt]
+    &= \frac{1}{\oldsqrt{40}} \bigg(
+        2 \kplus\kplus\kplus + \kplus\kplus\kplus
+        - 2\kminus\kminus\kminus + \kminus\kminus\kminus
+    \bigg) + (\dots)
+    \\[5pt]
+    &= \frac{3}{2\oldsqrt{10}} \kplus\kplus\kplus
+    - \frac{1}{2\oldsqrt{10}} \kminus\kminus\kminus
+    + (\dots).
+\end{align*}
+\endgroup
+Nyní velice snadno vypočteme pravděpodobnosti:
+\begin{align*}
+    P_{+++}
+    &= \left| \bra{+}\bra{+}\bra{+} \; \ket{\psi}\right|^2
+    = \left| \frac{3}{2\oldsqrt{10}} \right|^2
+    = \frac{9}{40} = 0.225
+    \\[5pt]
+    P_{---}
+    &= \left| \bra{-}\bra{-}\bra{-} \; \ket{\psi}\right|^2
+    = \left| \frac{-1}{2\oldsqrt{10}} \right|^2
+    = \frac{1}{40} = 0.025
+\end{align*}
+Pozn.: byla-li v zadání chyba a místo faktoru $\nicefrac{2}{\oldsqrt{3}}$ byl myšlen faktor $\sqrt{\nicefrac{2}{3}}$, zcela obdobným způsobem bychom dostali výsledek:
+\begin{align*}
+    P_{+++} &= \frac{\ph{-}2\oldsqrt{2} + 3}{24} \approx 0.2429
+    \\[5pt]
+    P_{---} &= \frac{-2\oldsqrt{2} + 3}{24} \approx 0.0071
+\end{align*}
+
+
+\section{Úloha č. 3}
+\subsection{Zadání}
+Je zadán hamiltonián:
+\begin{equation*}
+    \hat{H} = \epsilon_1 \kone\bone + \epsilon_2 \ktwo\btwo + J \left( \kone\btwo + \ktwo\bone \right),
+    \hspace{2em}
+    \epsilon_1 \neq \epsilon_2
+\end{equation*}
+Nalezněte jeho vlastní energie a) přesně a b) poruchovou teorií v J do prvního a druhého řádu. Porovnejte poruchové řešení s Taylorovým rozvojem přesného.
+
+\subsection{Řešení}
+Nejprve diagonalizací najdeme přesné vlastní energie hamiltoniánu:
+\begin{gather*}
+    \bra{m} \hat{H} \ket{n} = H
+    = \mat{ \epsilon_1 & J \\ J & \epsilon_2 },
+    \\[5pt]
+    0 = |H - E I|
+    = \det \mat{ \epsilon_1-E & J \\ J & \epsilon_2-E }
+    = (\epsilon_1-E)(\epsilon_2-E) - J^2
+\end{gather*}
+\begin{equation*}
+    E = \frac{1}{2} \left(
+        \epsilon_1 + \epsilon_2
+        \pm \sqrt{(\epsilon_1 - \epsilon_2)^2 + 4J^2}
+    \right)
+\end{equation*}
+
+\bigskip
+
+Nyní si vyjádříme hamiltonián řečí poruchové teorie druhého řádu:
+\begin{equation*}
+    H = H^{\circ} + J H' + J^2 H''
+\end{equation*}
+\begin{equation*}
+    \mat{ \epsilon_1 & J \\ J & \epsilon_2 }
+    = \mat{ \epsilon_1 & 0 \\ 0 & \epsilon_2 }
+    + J \mat{ 0 & 1 \\ 1 & 0 }
+    + J^2 \mat{ 0 & 0 \\ 0 & 0 }
+\end{equation*}
+Dále by stačilo použít obecný vzorec pro korekce $n$-tého řádu:
+\begin{align*}
+    E^{(n)}_k &=
+    \bra{\psi^{\mask{()}{\circ}}_k}
+    \sum_{m=0}^{n-1} \hat{H}^{(n-m)} \ket{\psi^{(m)}_k}
+    \\
+    \ket{\psi^{(n)}_k} &=
+    \sum_{\ell \neq k} \, \frac{1}{E^{\circ}_\ell - E^{\circ}_k}
+    \ket{\psi^{\circ}_\ell} \bra{\psi^{\circ}_\ell} \,
+    \left(
+        \hat{H}^{(n)} \ket{\psi^{\circ}_k} +
+        \sum_{m=1}^{n-1} (\hat{H}^{(n-m)} - E^{(n-m)}_k) \ket{\psi^{(m)}_k}
+    \right)
+\end{align*}
+Osobně ale nerad používám vzorečky „spadlé z nebe“, proto si v tomto úkolu dám na čas a korekce prvního a druhého řádu odvodím. V Schrödingerově rovnici si tedy rozvineme $\hat{H}, E_k, \ket{\psi_k}$ Taylorovou řadou podle $J$ a separujeme členy bez $J$, s $J$ a s $J^2$:
+\begin{align*}
+    H \vec{\psi} &= E \vec{\psi}
+    \\[5pt]
+    \left(H^{\circ} + J H' + J^2 H''\right)
+    \left(\vec{\psi_k^{\circ}} + J \vec{\psi_k'} + J^2 \vec{\psi_k''} \scalebox{0.8}{$\,+\, (\dots)$} \right)
+    &=
+    \left(E^{\circ}_k + J E_k' + J^2 E_k'' \scalebox{0.8}{$\,+\, (\dots)$}\right)
+    \left(\vec{\psi_k^{\circ}} + J \vec{\psi_k'} + J^2 \vec{\psi_k''} \scalebox{0.8}{$\,+\, (\dots)$} \right)
+    \\[5pt]
+    \scalebox{0.97}{$H^{\circ} \vec{\psi_k^{\circ}} +
+    J\left( H' \vec{\psi_k^{\circ}} \!+\! H^{\circ} \vec{\psi_k'} \right) +
+    J^2\!\left(H'' \vec{\psi_k^{\circ}} \!+\! H' \vec{\psi_k'} \!+\! H^{\circ} \vec{\psi_k''} \right)$}
+    &=
+    \scalebox{0.97}{$E^{\circ}_k \vec{\psi_k^{\circ}} +
+    J\left( E_k' \vec{\psi_k^{\circ}} \!+\! E^{\circ}_k \vec{\psi_k'} \right) +
+    J^2\!\left(E_k'' \vec{\psi_k^{\circ}} \!+\! E_k' \vec{\psi_k'} \!+\! E^{\circ}_k \vec{\psi_k''} \right) \!+\! (\dots)$}
+\end{align*}
+To pro aproximaci druhého řádu vede na tři rovnice:
+\begin{align*}
+    H^{\circ} \vec{\psi_k^{\circ}} &= E^{\circ}_k \vec{\psi_k^{\circ}}
+    \\[5pt]
+    H' \vec{\psi_k^{\circ}} + H^{\circ} \vec{\psi_k'} &= E_k' \vec{\psi_k^{\circ}} + E^{\circ}_k \vec{\psi_k'}
+    \\[5pt]
+    H'' \vec{\psi_k^{\circ}} + H' \vec{\psi_k'} + H^{\circ} \vec{\psi_k''} &= E_k'' \vec{\psi_k^{\circ}} + E_k' \vec{\psi_k'} + E^{\circ}_k \vec{\psi_k''}
+\end{align*}
+Vyřešíme vlastní čísla nultého řádu:
+\begin{align*}
+    H^{\circ} = \mat{ \epsilon_1 & 0 \\ 0 & \epsilon_2 }
+    \implies
+    E^{\circ}_1 = \epsilon_1, \;
+    \vec{\psi_1^{\circ}} = \smat[0.8]{1\\0},
+    \;\;\;
+    E^{\circ}_2 = \epsilon_2, \;
+    \vec{\psi_2^{\circ}} = \smat[0.8]{0\\1}.
+\end{align*}
+Pokračujeme prvním řádem, předpokládáme $\vec{\psi_k'} \perp \vec{\psi^{\circ}_k}$:
+\begin{equation*}
+    H' = \mat{0&1\\1&0}
+\end{equation*}
+\begin{align*}
+    H' \vec{\psi_1^{\circ}} + H^{\circ} \vec{\psi_1'} &= E_1' \vec{\psi_1^{\circ}} + E^{\circ}_1 \vec{\psi_1'}
+    \\[5pt]
+    \mat{0&1\\1&0} \mat{1\\0} +
+    \mat{\epsilon_1&0\\0&\epsilon_2}\mat{0\\a}
+    &=
+    E_1'\mat{1\\0} + \epsilon_1\mat{0\\a}
+    \\[5pt]
+    \mat{0\\1} + \mat{0\\\epsilon_2 a}
+    &=
+    \mat{E_1'\\0}+ \mat{0\\\epsilon_1 a}
+    \\[5pt]
+    0 = E_1', \;\;\; &\ph{} \;\;\; 1 = a(\epsilon_1 - \epsilon_2)
+\end{align*}
+\begin{align*}
+    H' \vec{\psi_2^{\circ}} + H^{\circ} \vec{\psi_2'} &= E_2' \vec{\psi_2^{\circ}} + E^{\circ}_2 \vec{\psi_1'}
+    \\[5pt]
+    \mat{0&1\\1&0} \mat{0\\1} +
+    \mat{\epsilon_1&0\\0&\epsilon_2}\mat{b\\0}
+    &=
+    E_2'\mat{0\\1} + \epsilon_2\mat{b\\0}
+    \\[5pt]
+    \mat{1\\0} + \mat{\epsilon_1 b\\0}
+    &=
+    \mat{0\\E_2'} + \mat{\epsilon_2 b\\0}
+    \\[5pt]
+    0 = E_2', \;\;\; &\ph{} \;\;\; 1 = b(\epsilon_2 - \epsilon_1)
+\end{align*}
+\begin{align*}
+    E_1' = 0, \;\;\;
+    \vec{\psi_1'} = \mat{0 \\ \frac{1}{\epsilon_1 - \epsilon_2}}, \;\;\;
+    E_2' = 0, \;\;\;
+    \vec{\psi_2'} = \mat{\frac{-1}{\epsilon_1 - \epsilon_2} \\ 0}.
+\end{align*}
+A nakonec druhý řád, opět předpokládáme $\vec{\psi_k''} \perp \vec{\psi^{\circ}_k}$:
+\begin{align*}
+    H'' \vec{\psi_1^{\circ}} + H' \vec{\psi_1'} + H^{\circ} \vec{\psi_1''} &= E_1'' \vec{\psi_1^{\circ}} + E_1' \vec{\psi_1'} + E^{\circ}_1 \vec{\psi_1''}
+    \\[5pt]
+    \mat{0&0\\0&0} \mat{1\\0} +
+    \mat{0&1\\1&0} \mat{0 \\ \frac{1}{\epsilon_1 - \epsilon_2}} +
+    \mat{\epsilon_1&0\\0&\epsilon_2} \mat{0\\c}
+    &=
+    E_1'' \mat{1\\0} +
+    0 \mat{0 \\ \frac{1}{\epsilon_1 - \epsilon_2}} +
+    \epsilon_1 \mat{0\\c}
+    \\[5pt]
+    \mat{\frac{1}{\epsilon_1 - \epsilon_2} \\ 0} +
+    \mat{0 \\ \epsilon_2 c}
+    &=
+    \mat{E_1'' \\ 0} +
+    \mat{0 \\ \epsilon_1 c}
+    \\[5pt]
+    \frac{1}{\epsilon_1 - \epsilon_2} &= E_1''
+\end{align*}
+\begin{align*}
+    H'' \vec{\psi_2^{\circ}} + H' \vec{\psi_2'} + H^{\circ} \vec{\psi_2''} &= E_2'' \vec{\psi_2^{\circ}} + E_2' \vec{\psi_2'} + E^{\circ}_2 \vec{\psi_2''}
+    \\[5pt]
+    \mat{0&0\\0&0} \mat{0\\1} +
+    \mat{0&1\\1&0} \mat{\frac{-1}{\epsilon_1 - \epsilon_2} \\ 0} +
+    \mat{\epsilon_1&0\\0&\epsilon_2} \mat{d\\0}
+    &=
+    E_2'' \mat{0\\1} +
+    0 \mat{\frac{-1}{\epsilon_1 - \epsilon_2} \\ 0}+
+    \epsilon_2 \mat{d\\0}
+    \\[5pt]
+    \mat{0 \\ \frac{-1}{\epsilon_1 - \epsilon_2}} +
+    \mat{\epsilon_1 d\\0}
+    &=
+    \mat{0 \\ E_2''} +
+    \mat{\epsilon_2 d\\0}
+    \\[5pt]
+    \frac{-1}{\epsilon_1 - \epsilon_2} &= E_2''
+\end{align*}
+
+\bigskip
+
+Získali jsme aproximace druhého řádu pro vlastní energie $\hat{H}$:
+\begin{equation*}
+    E_1 = \epsilon_1 + \frac{J^2}{\epsilon_1 - \epsilon_2},
+    \hspace{2em}
+    E_2 = \epsilon_2 + \frac{J^2}{\epsilon_2 - \epsilon_1}
+\end{equation*}
+Porovnáme je nyní s Taylorovým rozvojem jejich přesných hodnot, \textit{wlog.} předpokládáme $\epsilon_1 > \epsilon_2$:
+\begin{align*}
+E_1 &= \frac{1}{2} \left(
+    \epsilon_1 + \epsilon_2
+    + \sqrt{(\epsilon_1 - \epsilon_2)^2 + 4J^2}
+\right)
+=
+\epsilon_1
++ \frac{J^2}{\epsilon_1 - \epsilon_2}
+- \frac{J^4}{(\epsilon_1 - \epsilon_2)^3}
++ 2\frac{J^6}{(\epsilon_1 - \epsilon_2)^5}
++ (\dots)
+\\[5pt]
+E_2 &= \frac{1}{2} \left(
+    \epsilon_1 + \epsilon_2
+    - \sqrt{(\epsilon_1 - \epsilon_2)^2 + 4J^2}
+\right)
+=
+\epsilon_2
+- \frac{J^2}{\epsilon_1 - \epsilon_2}
++ \frac{J^4}{(\epsilon_1 - \epsilon_2)^3}
+- 2\frac{J^6}{(\epsilon_1 - \epsilon_2)^5}
++ (\dots)
+\end{align*}
+Vidíme, že jsme perturbační metodou získali stejný výsledek, jaký by nám dal Taylorův rozvoj přesného výsledku, s~tím podstatným rozdílem, že jsme výpočtem přes perturbační metodu strávili výrazně více času. Z toho plyne důležité ponaučení: počítat jednoduché příklady perturbační metodou je blbost.
+
+
+\section{Úloha č. 4}
+
+\subsection{Zadání}
+Vypočtěte komutátor $\comm{\hat{p}^2}{\hat{q}}$ a pomocí něj odůvodněte vztah
+\begin{equation*}
+    \hat{\bigdot{q}} = \frac{\i}{\hbar} \comm{\hat{H}}{\hat{q}}.
+\end{equation*}
+
+\subsection{Řešení}
+Začneme výpočtem komutátoru, využijeme kanonického vztahu $\comm{\hat{p}}{\hat{q}} = -\i\hbar$:
+\begin{align*}
+    \comm{\hat{p}^2}{\hat{q}}
+    &=
+    \hat{p}\hat{p}\hat{q} \ph{\ph{} - \hat{p}\hat{q}\hat{p} + \hat{p}\hat{q}\hat{p}} - \hat{q}\hat{p}\hat{p}
+    \\
+    &= \hat{p}\hat{p}\hat{q} - \hat{p}\hat{q}\hat{p} + \hat{p}\hat{q}\hat{p} - \hat{q}\hat{p}\hat{p}
+    \\
+    &= \mask{\hat{p}\hat{p}\hat{q} - \hat{p}\hat{q}\hat{p}}{ \hat{p} \, (\hat{p}\hat{q} \!-\! \hat{q}\hat{p}) } + \mask{\hat{p}\hat{q}\hat{p} - \hat{q}\hat{p}\hat{p}}{ (\hat{p}\hat{q} \!-\! \hat{q}\hat{p}) \, \hat{p} }
+    \\
+    &= \mask{\hat{p}\hat{p}\hat{q} - \hat{p}\hat{q}\hat{p}}{ \hat{p}\comm{\hat{p}}{\hat{q}} } + \mask{\hat{p}\hat{q}\hat{p} - \hat{q}\hat{p}\hat{p}}{ \comm{\hat{p}}{\hat{q}}\hat{p} }
+    \\
+    &= -2\,\i\hbar\,\hat{p}
+\end{align*}
+Uvažujeme-li volnou částici, platí $\hat{H} = \frac{\hat{p}^2}{2m}$, tedy:
+\begin{align*}
+    \comm{\hat{H}}{\hat{q}}
+    &= \big[ \dfrac{\hat{p}^2}{2m}, \, \hat{q} \big]
+    = \frac{1}{2m} \comm{\hat{p}^2}{\hat{q}}
+    = -\frac{1}{2m} \, 2\,\i\hbar\,\hat{p}
+    = \frac{\hbar}{\i} \, \frac{\hat{p}}{m}
+    = \frac{\hbar}{\i} \, \hat{\bigdot{q}}.
+\end{align*}
+
+\end{document}
