@@ -1,0 +1,538 @@
+% !TEX program = xelatex
+
+\documentclass[10pt,a4paper]{article}
+\usepackage[top = 1.5cm, bottom = 1.5cm, left = 1.5cm, right = 1.5cm]{geometry}
+
+\usepackage{titling}
+\usepackage[czech]{babel}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage{hyperref}
+\usepackage{setspace}
+\usepackage{csvsimple}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{units}
+\usepackage{bm}
+\usepackage{bbm}
+\delimitershortfall=-1pt
+
+\usepackage{mathtools}
+\usepackage{accents}
+\usepackage{calc}
+
+% no page break
+\newenvironment{absolutelynopagebreak}
+  {\par\nobreak\vfil\penalty0\vfilneg
+   \vtop\bgroup}
+  {\par\xdef\tpd{\the\prevdepth}\egroup
+   \prevdepth=\tpd}
+
+
+% redefine \sqrt
+\usepackage{letltxmacro}
+\makeatletter
+\let\oldr@@t\r@@t
+\def\r@@t#1#2{%
+\setbox0=\hbox{$\oldr@@t#1{#2\,}$}\dimen0=\ht0
+\advance\dimen0-0.2\ht0
+\setbox2=\hbox{\vrule height\ht0 depth -\dimen0}%
+{\box0\lower0.4pt\box2}}
+\LetLtxMacro{\oldsqrt}{\sqrt}
+\renewcommand*{\sqrt}[2][\ ]{\oldsqrt[#1]{#2\,}\,}
+\makeatother
+
+% redefine \hbar
+\LetLtxMacro{\oldhbar}{\hbar}
+\renewcommand*{\hbar}{{\mathpalette\hbaraux\relax\mathrm{h}}}
+\newcommand*{\hbaraux}[2]{\sbox0{\mathsurround=0pt$#1\mathchar'26$}\mkern-1mu\lower.07\ht0\box0\mkern-8mu}
+
+% define \bigcdot
+\makeatletter
+\newcommand*\bigcdot{\mathpalette\bigcdot@{.8}}
+\newcommand*\bigcdot@[2]{\mathbin{\vcenter{\hbox{\scalebox{#2}{$\m@th#1\bullet$}}}}}
+\makeatother
+
+\def\ph{\phantom}
+\def\vph{\vphantom}
+\def\hph{\hphantom}
+\def\rzw{\mathrlap}
+\def\lzw{\mathllap}
+\def\czw{\mathclap}
+
+\newcommand{\nph}[1]{\settowidth{\dimen0}{#1}\hspace*{-\dimen0}}
+
+\newcommand*{\mask}[2]{%
+    \mathord{\makebox[\widthof{\(#1\)}]{\(#2\)}}%
+}
+
+\def\?{\mathit{?}}
+
+\newcommand{\comm}[2]{\left[ #1, #2 \right]}
+\newcommand{\const}[1]{\text{#1}}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+
+\newcommand{\mat}[1]{
+    \begin{pmatrix}
+        #1
+    \end{pmatrix}
+}
+
+\newcommand{\mata}[2]{
+    \left(
+    \begin{array}{@{}#1@{}}
+        #2
+    \end{array}
+    \right)
+}
+
+\newcommand{\smat}[2][1]{
+    \scalebox{#1}{$\mat{#2}$}
+}
+
+\renewcommand{\d}[1]{\;\const{d}#1}
+\newcommand{\dd}[2]{\frac{\const{d} #1}{\const{d} #2} \;}
+\newcommand{\pd}[2]{\frac{\partial  #1}{\partial  #2} \;}
+
+\newcommand{\bra}[1]{\left< #1 \right|}
+\newcommand{\ket}[1]{\left| #1 \right>}
+\newcommand{\braket}[2]{\left< #1 \middle| #2 \right>}
+
+\newcommand{\e}[1]{\const{e}^{#1}}
+\renewcommand{\i}{\const{i}}
+
+\newcommand{\bigdot}[1]{\accentset{\bigcdot}{#1}}
+\newcommand{\bigddot}[1]{\accentset{\bigcdot\bigcdot}{#1}}
+
+
+\def\kzero{\ket{\mask{+}{0}}}
+\def\kone{\ket{\mask{+}{1}}}
+\def\ktwo{\ket{\mask{+}{2}}}
+\def\kplus{\ket{+}}
+\def\kminus{\ket{-}}
+
+\def\bone{\bra{\mask{+}{1}}}
+\def\btwo{\bra{\mask{+}{2}}}
+
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\1{\mathbbm{1}}
+
+\def\Parity{\hat{\mathcal P}}
+\def\Cop{\hat{\mathcal C}}
+\def\G{\mathnormal\Gamma}
+
+
+\begin{document}
+
+\title{Úvod do kvantové mechaniky: Domácí úkoly z přednášek}
+\author{Michal Grňo}
+\date{\today}
+
+\maketitle
+
+\section{Projekce spinu do obecného směru}
+
+\subsection{Zadání}
+Nechť projekce spinu do osy $z$ je $\nicefrac{1}{2}$. S jakou pravděpodobností naměříme projekci spinu $\pm\nicefrac{1}{2}$ do obecného směru?
+
+\subsection{Řešení}
+Zavedeme si jednotkový vektor $\vec n$ parametrizovaný sférickými souřadnicemi:
+\begin{equation*}
+    \vec n = \mat{
+        \sin \vartheta \cos \varphi \\
+        \sin \vartheta \sin \varphi \\
+        \cos \vartheta
+    }
+\end{equation*}
+Zavedeme si operátor $\hat S_{\vec n} = \vec n \cdot \hat{\vec S}$, kde $\hat{\vec S}$ reprezentujeme Pauliho maticemi:
+\begin{equation*}
+    \hat{\vec S} = \frac{1}{2} \mat{
+        \smat[0.8]{0 & \ph{-} 1 \\ 1 & \ph{-} 0} \\[10pt]
+        \smat[0.8]{0 & -\i \\ \i & \ph{-} 0} \\[10pt]
+        \smat[0.8]{1 & \ph{-} 0 \\ 0 & -1}
+    }
+\end{equation*}
+Operátor $\hat S_{\vec n}$ nám potom vyjde:
+\begin{equation*}
+    \hat S_{\vec n} = \frac{1}{2} \mat{
+        \cos \vartheta & \sin \vartheta \; \e{-\i \varphi} \\
+        \sin \vartheta \; \e{\i \varphi} & -\cos \vartheta
+    }
+\end{equation*}
+Víme, že vlastní čísla $\hat S_{\vec n}$ jsou $\pm \nicefrac{1}{2}$, přejdeme tedy rovnou k nalezení vlastních vektorů:
+\begin{equation*}
+    \ker(\hat S_{\vec n} - \nicefrac{1}{2} \, \hat I)
+    = \ker\mat{
+        \cos \vartheta - 1 & \sin \vartheta \; \e{-\i \varphi} \\
+        \sin \vartheta \; \e{\i \varphi} & -\cos \vartheta - 1
+    }
+    = \operatorname{span} \{ \mat{
+        \e{-\i \varphi} (\cot \vartheta + \csc \vartheta) \\ 1
+    } \}
+\end{equation*}
+\begin{equation*}
+    \ker(\hat S_{\vec n} + \nicefrac{1}{2} \, \hat I)
+    = \ker\mat{
+        \cos \vartheta + 1 & \sin \vartheta \; \e{-\i \varphi} \\
+        \sin \vartheta \; \e{\i \varphi} & -\cos \vartheta + 1
+    }
+    = \operatorname{span} \{ \mat{
+        \e{-\i \varphi} (\cot \vartheta - \csc \vartheta) \\ 1
+    } \}
+\end{equation*}
+Normalizované vlastní stavy jsou tedy:
+\begin{equation*}
+    \ket{\pm \vec n} =
+    \frac{1}{\oldsqrt{2}} \,
+    \frac{1}{\sqrt{1 \pm \cos \vartheta}}
+    \mat{
+        \cos \vartheta \pm 1 \\
+        \e{\i \varphi} \sin \vartheta
+    }
+\end{equation*}
+Pravděpodobnost naměření $\ket{\pm \vec n}$, je-li stav $\ket{+z}$, je:
+\begin{equation*}
+    P = | \braket{+z}{\pm \vec n} |^2
+    =
+    \left|
+    \mat{1 \\ 0}
+    \cdot
+    \frac{1}{\oldsqrt{2}} \,
+    \frac{1}{\sqrt{1 \pm \cos \vartheta}}
+    \mat{
+        \cos \vartheta \pm 1 \\
+        \e{\i \varphi} \sin \vartheta
+    }
+    \right|^2
+    =
+    \left|
+    \frac{1}{\oldsqrt{2}} \,
+    \frac{\cos \vartheta \pm 1}{\sqrt{1 \pm \cos \vartheta}}
+    \right|^2
+    = \frac{1}{2} \pm \frac{1}{2} \cos \theta.
+\end{equation*}
+
+
+\section{Rabiho metoda}
+
+\subsection{Zadání}
+Mějme částici se spinem $\nicefrac{1}{2}$ v poli s intenzitou
+\begin{equation*}
+    \vec B = \mat{
+        B_1 \cos \omega t \\
+        B_1 \sin \omega t \\
+        B_0
+    },
+\end{equation*}
+kde $B_1 \ll B_0$, $\omega \approx -K B_0$.
+
+Stav spinu $\ket{\psi(t)}$ začíná v čase $t=0$ jako $\ket{\pm z}$. S jakou pravděpodobností bude v obecném čase $t$ ve stavu $\ket{-z}$?
+
+\subsection{Řešení}
+Hamiltonián systému je
+\begin{equation*}
+    \hat H = - K \; \hat{\vec S} \cdot \vec B,
+\end{equation*}
+kde $\hat{\vec S}$ reprezentujeme Pauliho maticemi. Využijeme rozklad $\hat{\vec S}$ na žebříkové operátory $\hat S_\pm$:
+\begin{equation*}
+    \hat S_\pm
+    = \hat S_\mathrm{x} \pm \i \hat S_\mathrm{y}
+    = \frac{1}{2} \mat{ 0 & 1 \pm 1 \\ 1 \mp 1 & 0 }
+    = \begin{Bmatrix}
+        \smat[0.8]{0 & 1 \\ 0 & 0} \\[15pt]
+        \smat[0.8]{0 & 0 \\ 1 & 0}
+    \end{Bmatrix}
+    = \ket{\pm} \bra{\mp}.
+\end{equation*}
+Navíc víme, že
+\begin{equation*}
+    \hat S_\mathrm{z}
+    = \frac{1}{2} (\ket{+} \! \bra{+} \, - \, \ket{-} \! \bra{-}).
+\end{equation*}
+Podobně rozložíme $\vec B$:
+\begin{equation*}
+    B_\pm
+    = B_\mathrm{x} \pm \i B_\mathrm{y}
+    = B_1 (\cos \omega t \pm \i \sin \omega t)
+    = B_1 \, \e{\pm \i \omega t}.
+\end{equation*}
+Nyní můžeme vyjádřit hamiltonián ve tvaru
+\begin{equation*}
+    \hat H
+    = -K \; \hat{\vec S} \cdot \vec B
+    = -K \; \left(
+        \frac{1}{2} (\hat S_+ B_- + \hat S_- B_+)
+        + \hat S_\mathrm{z} B_\mathrm{z}
+    \right)
+    = -\frac{K}{2} \left(
+        B_1 \, \e{-\i \omega t} \ket{+} \! \bra{-} \, + \,
+        B_1 \, \e{+\i \omega t} \ket{-} \! \bra{+} \, + \,
+        \ket{+} \! \bra{+} \, - \, \ket{-} \! \bra{-}
+    \right),
+\end{equation*}
+tedy v maticové formě
+\begin{equation*}
+    \bra{\pm} \hat H \ket{\pm} =
+    -\frac{K}{2} \mat{
+        B_0 & B_1 \e{-\i \omega t}  \\
+        B_1 \e{+\i \omega t} & -B_0
+    }.
+\end{equation*}
+
+\bigskip
+
+Nyní se můžeme pustit do řešení samotné Schrödingerovy rovnice.
+\begin{equation*}
+    -\i \dd{}{t}\!\! \ket{\psi} = \hat H(t) \ket{\psi}
+\end{equation*}
+\begin{equation*}
+    -\i \dd{}{t} \mat{ c_+(t) \\ c_-(t) }
+    = -\frac{K}{2} \mat{
+        B_0 & B_1 \e{-\i \omega t}  \\
+        B_1 \e{+\i \omega t} & -B_0
+    }
+    \mat { c_+(t) \\ c_-(t) }
+\end{equation*}
+\begin{align}
+    -\i\bigdot c_+
+    &= - \frac{K B_0}{2} \; \, c_+
+    - \frac{K B_1}{2} \; \, \e{-\i \omega t} \, c_-
+    \label{rce_cplus}
+    \\
+    -\i\bigdot c_-
+    &= + \frac{K B_0}{2} \; \, c_-
+    - \frac{K B_1}{2} \; \, \e{+\i \omega t} \, c_+
+    \label{rce_cminus}
+\end{align}
+\begin{gather*}
+    \text{Z rovnice \eqref{rce_cplus}: }
+    \quad
+    c_- = \frac{2}{K B_1} \e{+\i \omega t} \left( \i \bigdot c_+ - \frac{K B_0}{2} \, c_+ \right)
+    = \e{+\i \omega t} \left(
+        \i \; \frac{2}{K B_1} \, \bigdot{c}_+
+        - \frac{B_0}{B_1} \, c_+
+    \right)
+    \\
+\end{gather*}
+\begin{gather*}
+    \text{Z rovnice \eqref{rce_cminus}: }
+    \\
+    -\i \dd{}{t}
+    \e{+\i \omega t}
+    \left(
+        \i \; \frac{2}{K B_1} \, \bigdot{c}_+
+        - \frac{B_0}{B_1} \, c_+
+    \right)
+    =
+    \frac{K B_0}{2} \; \, \e{+\i \omega t}
+    \left(
+        \i \; \frac{2}{K B_1} \, \bigdot{c}_+
+        - \frac{B_0}{B_1} \, c_+
+    \right)
+    - \frac{K B_1}{2} \; \, \e{+\i \omega t} \, c_+
+    \\[10pt]
+    \big\Downarrow
+    \\[10pt]
+    0 = \bigddot c_+ + \i\omega \bigdot c_+ +
+    \underbrace{\left(
+        \frac{ {B_0}^2 K^2 }{4}
+        - \frac{ B_0 K \omega }{2}
+        - \frac{ {B_1}^2 K^2 }{4}
+    \right)}_\kappa c_+
+\end{gather*}
+Máme tedy rovnici typu
+\begin{align*}
+    f'' + \i\omega f' + \kappa f &= 0 \\
+    \lambda^2 + \i\omega\rzw{\lambda}\ph{f'} + \kappa\ph{f} &= 0
+\end{align*}
+\begin{gather*}
+    \lambda
+    = \frac{-\i \omega \pm \sqrt{(\i\omega)^2 - 4 \kappa}}{2}
+    = - \frac{\i}{2} \, \omega \pm \frac{\i}{2} \sqrt{\omega^2 + 4\kappa}
+    \\[10pt]
+    f
+    = C_1 \, \exp\i(-\frac{\omega}{2} + \frac{1}{2} \sqrt{\omega^2 + 4\kappa}) t
+    + C_2 \, \exp\i(-\frac{\omega}{2} - \frac{1}{2} \sqrt{\omega^2 + 4\kappa}) t
+\end{gather*}
+Odmocninu můžeme ještě dále zjednodušit zanedbáním členu s ${B_1}^2$, který je výrazně menší než ostatní členy (viz zadání).
+\begin{gather*}
+    \sqrt{\omega^2 + 4\kappa}
+    = \sqrt{
+        \omega^2
+        + {B_0}^2 K^2
+        - 2 B_0 K \omega
+        - {B_1}^2 K^2
+    } \approx  \sqrt{
+        \omega^2
+        - 2 B_0 K \omega
+        + {B_0}^2 K^2
+    }
+    = B_0 K - \omega
+\end{gather*}
+Pro $c_+$ tedy dostáváme:
+\begin{align*}
+    c_+(t) &= \e{-\i\omega t/2} \left(
+        C_1 \e{+\i t\, \frac{B_0 K - \omega}{2}} +
+        C_2 \e{-\i t\, \frac{B_0 K - \omega}{2}}
+    \right)
+    \\[10pt]
+    c_+(t) &= \e{-\i\omega t/2} \left(
+        D_1 \cos \frac{B_0 K - \omega}{2} t +
+        D_2 \sin \frac{B_0 K - \omega}{2} t
+    \right)
+\end{align*}
+Dosazením do \eqref{rce_cminus} získáme:
+\begin{gather*}
+    c_-(t) = \e{+\i \omega t} \e{-\omega t/2} \left(
+        \i \; \frac{2}{K B_1} \, \dd{}{t} \left(
+            D_1 \cos \tfrac{B_0 K - \omega}{2} t +
+            D_2 \sin \tfrac{B_0 K - \omega}{2} t
+        \right)
+        - \frac{B_0}{B_1} \, \left(
+            D_1 \cos \tfrac{B_0 K - \omega}{2} t +
+            D_2 \sin \tfrac{B_0 K - \omega}{2} t
+        \right)
+    \right)
+\end{gather*}
+Konstanty $D_n$ určíme z počáteční podmínky $\ket{\psi(t=0)} = \ket{\pm z}$ a z požadavku, aby byl stav $\ket{\psi(t)}$ normalizovaný. Pro přehlednost si zavedeme označení $\psi_\pm(0) \equiv \ket{\pm z}$.
+\begin{gather*}
+    1 = \braket{\pm z}{\psi_\pm(0)}
+    = \begin{Bmatrix}
+        \smat[0.8]{1 \\ 0} \\[15pt]
+        \smat[0.8]{0 \\ 1}
+    \end{Bmatrix}
+    \cdot \mat{
+        D_1 \\ D_3
+    }
+\end{gather*}
+Tedy pro $\psi_+$ máme $D_1 = 1, \; D_2 = 0$, pro $\psi_-$ zase $D_3 = 1, \; D_4 = 0$. Zbylé konstanty dopočítáme dosazením. Celkově platí:
+\begin{equation*}
+    \ket{\psi_+(t)} = \mat{
+        \ph{\i \,} \e{\displaystyle -\i\omega t/2} \;\; \cos \dfrac{B_0 K - \omega}{2} t
+        \\[10pt]
+        \i \, \e{\displaystyle +\i\omega t/2} \;\; \sin \dfrac{B_0 K - \omega}{2} t
+    } \: ,
+    \quad
+    \ket{\psi_-(t)} = \mat{
+        \i \, \e{\displaystyle -\i\omega t/2} \;\; \sin \dfrac{B_0 K - \omega}{2} t
+        \\[10pt]
+        \ph{\i \,} \e{\displaystyle +\i\omega t/2} \;\; \cos \dfrac{B_0 K - \omega}{2} t
+    } \: .
+\end{equation*}
+Pokud by nastal případ $\omega = -B_0 K$, máme:
+\begin{equation*}
+    \ket{\psi_+(t)} = \mat{
+        \ph{\i \,} \e{\displaystyle +\i K B_0 t/2} \;\; \cos B_0 K t
+        \\[10pt]
+        \i \, \e{\displaystyle -\i K B_0 t/2} \;\; \sin B_0 K t
+    } \: ,
+    \quad
+    \ket{\psi_-(t)} = \mat{
+        \i \, \e{\displaystyle +\i K B_0 t/2} \;\; \sin B_0 K t
+        \\[10pt]
+        \ph{\i \,} \e{\displaystyle -\i K B_0 t/2} \;\; \cos B_0 K t
+    } \: .
+\end{equation*}
+
+
+
+\section{\texorpdfstring{$\mathcal{PT}$}{PT}-symetrický hamiltonián}
+\subsection{Zadání}
+Máme zadány operátory
+\begin{equation*}
+    \hat\G = \smat[0.8]{
+        \ph{-}K & -\i a \\
+        - \i a  & -K
+    },
+    \quad
+    \Parity = \smat[0.8]{
+        1 & \ph{-}0 \\
+        0 & -1
+    },
+\end{equation*}
+kde $K, a \in \R_+$. Ukažte, že
+\begin{enumerate}
+    \item $\Parity^2 = \1, \quad \hat\G^+ = \Parity \; \hat\G \; \Parity$
+    \item $\hat\G \ket{\pm} = \pm \G \ket{\pm}, \quad \G = \sqrt{K^2 - a^2}, \quad$ tedy pro $a<K$ je neporušena $\mathcal{PT}$-symetrie.
+    \item pro $a>K$ platí $\bra{\pm} \Parity \ket{\pm} = 0$
+\end{enumerate}
+
+Pro $\mathcal{PT}$-symetrické operátory platí upravená relace úplnosti
+\begin{equation*}
+    \1 = \sum_n (-1)^n \ket{n} \bra{n} \Parity .
+\end{equation*}
+Ověřte její platnost pro $\hat\G$ při $a<K$.
+
+Definujeme operátor
+\begin{equation*}
+    \Cop \coloneqq \sum_n \ket{n} \bra{n} \Parity,
+\end{equation*}
+ten komutuje s $\hat\G$ i $\Parity$ a tvoří základ skalárního součinu, pod kterým je $\ket{n}$ ortonormální systém:
+\begin{equation*}
+    (\psi, \phi)_\mathcal{CPT} \coloneqq \bra{\psi} \Parity \Cop \ket{\phi} .
+\end{equation*}
+Vypočtěte $\Cop$ a pro $a<K$ ověřte, že
+\begin{enumerate}
+    \item $\Cop^2 = \1$
+    \item $\Cop \ket{\pm} = \pm \ket{\pm}$
+    \item $\Cop \ket{+}\bra{+} \Parity + \Cop \ket{-}\bra{-} \Parity = \1$
+    \item $\bra{m} \Parity \Cop \ket{n} = \delta_{mn}$
+\end{enumerate}
+
+\subsection{Řešení}
+\begin{gather*}
+    \Parity^2 = \smat[0.8]{1 \\& -1}^2 = \smat[0.8]{1\\&1}
+    \\\\
+    \Parity \; \hat\G \; \Parity =
+    \smat[0.8]{1 \\& -1}
+    \smat[0.8]{\ph{-}K & -\i a \\ -\i a & -K}
+    \smat[0.8]{1 \\& -1}
+    =
+    \smat[0.8]{K & \ph{-} \i a \\ \i a & -K}
+    = \hat \G^+
+    \\\\
+    0 = \left|\hat\G - \lambda\1\right| = \begin{vmatrix}
+        K-\lambda & -\i a \\ -\i a & -K-\lambda
+    \end{vmatrix}
+    = -(K-\lambda)(K+\lambda) + a^2 = \lambda^2 - (K^2 - a^2)
+    \\
+    \lambda = \pm \sqrt{K^2 - a^2} \equiv \pm \G
+    \\\\
+    \ket{\pm} \propto \mat{
+        \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \\
+        \mp \i
+    }
+    \\\\
+    C_\pm =
+    \norm{ \smat[0.8]{
+        \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \\
+        \mp \i
+    } }^2
+    = \left| \sqrt{\left(\tfrac{K}{a}\right)^2 - 1} \pm \frac{K}{a} \right|^2 - 1
+\end{gather*}
+Normalizovat vektory $\ket\pm$ by nám nepřineslo žádnou výhodu, zapamatujeme si tedy pouze, jakým faktorem chceme případný výsledek dělit. Přistoupíme k výpočtu $\bra\pm \Parity \ket\pm$:
+\begin{gather*}
+    \bra\pm \Parity \ket\pm
+    \propto \smat[0.8]{
+        \operatorname{conj} \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} &
+        \;\mp \i
+    }
+    \smat[0.8]{1 \\& -1}
+    \smat[0.8]{
+        \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \\
+        \mp \i
+    }
+    = \left| \sqrt{ \left(\tfrac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \right|^2 + 1
+\end{gather*}
+Pro $a>K$ si můžeme $a$ parametrizovat jako $a(t) = K \cosh t, \; t \in \R$. Potom nám vyjde:
+\begin{gather*}
+    \bra\pm \Parity \ket\pm
+    \propto \left| \sqrt{\frac{1}{\cosh^2 t} - 1 } \pm \frac{1}{\cosh t} \right|^2 + 1
+    = \left| \sqrt{ \frac{1 - \cosh^2 t}{\cosh^2 t} } \pm \frac{1}{\cosh t} \right|^2 + 1
+\end{gather*}
+
+
+\end{document}
