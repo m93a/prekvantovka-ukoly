@@ -106,6 +106,7 @@
 \newcommand{\bigdot}[1]{\accentset{\bigcdot}{#1}}
 \newcommand{\bigddot}[1]{\accentset{\bigcdot\bigcdot}{#1}}
 
+\def\tg{\operatorname{tg}}
 
 \def\kzero{\ket{\mask{+}{0}}}
 \def\kone{\ket{\mask{+}{1}}}
@@ -458,6 +459,7 @@ kde $K, a \in \R_+$. Ukažte, že
     \item $\Parity^2 = \1, \quad \hat\G^+ = \Parity \; \hat\G \; \Parity$
     \item $\hat\G \ket{\pm} = \pm \G \ket{\pm}, \quad \G = \sqrt{K^2 - a^2}, \quad$ tedy pro $a<K$ je neporušena $\mathcal{PT}$-symetrie.
     \item pro $a>K$ platí $\bra{\pm} \Parity \ket{\pm} = 0$
+    \item pro $a<K$ platí $\bra{m} \Parity \ket{n} = (-1)^m \, \delta_{mn}$
 \end{enumerate}
 
 Pro $\mathcal{PT}$-symetrické operátory platí upravená relace úplnosti
@@ -500,38 +502,227 @@ Vypočtěte $\Cop$ a pro $a<K$ ověřte, že
     = -(K-\lambda)(K+\lambda) + a^2 = \lambda^2 - (K^2 - a^2)
     \\
     \lambda = \pm \sqrt{K^2 - a^2} \equiv \pm \G
-    \\\\
-    \ket{\pm} \propto \mat{
-        \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \\
-        \mp \i
-    }
-    \\\\
-    C_\pm =
-    \norm{ \smat[0.8]{
-        \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \\
-        \mp \i
-    } }^2
-    = \left| \sqrt{\left(\tfrac{K}{a}\right)^2 - 1} \pm \frac{K}{a} \right|^2 - 1
 \end{gather*}
-Normalizovat vektory $\ket\pm$ by nám nepřineslo žádnou výhodu, zapamatujeme si tedy pouze, jakým faktorem chceme případný výsledek dělit. Přistoupíme k výpočtu $\bra\pm \Parity \ket\pm$:
+Nyní nalezneme vlastní vektory pro $a>K$, využijeme parametrizaci $a = K \cosh t, \; t \in \R$.
 \begin{gather*}
-    \bra\pm \Parity \ket\pm
-    \propto \smat[0.8]{
-        \operatorname{conj} \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} &
-        \;\mp \i
-    }
-    \smat[0.8]{1 \\& -1}
-    \smat[0.8]{
-        \sqrt{ \left(\frac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \\
-        \mp \i
-    }
-    = \left| \sqrt{ \left(\tfrac{K}{a}\right)^2 - 1 } \pm \frac{K}{a} \right|^2 + 1
+    \hat\G = K \mat{
+        1 & -\i \cosh t \\
+        -\i \cosh t & -1
+    } \: ,
+    \quad
+    \G = \sqrt{K^2 - K^2 \cosh^2 t}
+    = \i K \sinh t \: ,
+    \quad
+    \ket{\pm} = \mat{ A_\pm \\ B_\pm }
+    \\
+    \hat\G\ket{\pm} = \pm\G\ket{\pm}
+    \\[10pt]
+    \ph{-}A_\pm - \i B_\pm \cosh t = \pm \i A_\pm \sinh t \\
+    -B_\pm - \i A_\pm \cosh t = \pm \i B_\pm \sinh t
+    \\[10pt]
+    B_\pm = A_\pm \frac{-\i \pm \sinh t}{\cosh t}
 \end{gather*}
-Pro $a>K$ si můžeme $a$ parametrizovat jako $a(t) = K \cosh t, \; t \in \R$. Potom nám vyjde:
+\begin{align*}
+    \bra{\pm} \Parity \ket{\pm}
+    &= \smat[0.8]{A_\pm \\ B_\pm}^{\!+} \;
+    \smat[0.8]{ 1 \\ & -1} \;\;
+    \smat[0.8]{A_\pm \\ B_\pm}
+    = {A_\pm}^2
+    \smat[0.8]{1 \\ \tfrac{-\i \pm \sinh t}{\cosh t}}^{\!+} \;
+    \smat[0.8]{ 1 \\ & -1} \;\;
+    \smat[0.8]{1 \\ \tfrac{-\i \pm \sinh t}{\cosh t}}
+    = {A_\pm}^2 \left(
+        1 +
+        \frac{\, \i \pm \sinh t \,}{\cosh t} \;
+        \frac{\, \i \mp \sinh t \,}{\cosh t}
+    \right)
+    \\
+    &= {A_\pm}^2 \left(
+        1 +
+        \frac{\i^2 - \sinh^2 t}{\cosh^2 t}
+    \right)
+    = {A_\pm}^2 \left(
+        1 -
+        \frac{1 + \sinh^2 t}{\cosh^2 t}
+    \right)
+    = 0
+\end{align*}
+Tím jsme dokázali první tři body zadání. Nyní budeme pracovat s $a<K$, zvolíme parametrizaci $a = K \sin t, \; t \in (0, \pi)$.
 \begin{gather*}
-    \bra\pm \Parity \ket\pm
-    \propto \left| \sqrt{\frac{1}{\cosh^2 t} - 1 } \pm \frac{1}{\cosh t} \right|^2 + 1
-    = \left| \sqrt{ \frac{1 - \cosh^2 t}{\cosh^2 t} } \pm \frac{1}{\cosh t} \right|^2 + 1
+    \hat\G = K \mat{
+        1 & -\i \sin t \\
+        -\i \sin t & -1
+    } \: ,
+    \quad
+    \G = K\sqrt{1 - \sin^2 t} = K \cos t \: ,
+    \quad
+    \ket{\pm} = \mat{ A_\pm \\ B_\pm }
+    \\
+    \hat\G\ket\pm = \pm\G\ket\pm
+    \\[10pt]
+    \ph{-}A_\pm - \i B_\pm \sin t = \pm A_\pm \cos t \\
+    -B_\pm - \i A_\pm \sin t = \pm B_\pm \cos t
+    \\[10pt]
+    B_\pm = \i A_\pm \; \frac{-1 \pm \cos t}{\sin t}
+    \\[10pt]
+    \ket\pm = A_\pm \mat{ 1 \\ \i \; \frac{-1 \pm \cos t}{\sin t}} = \frac{1}{\sqrt{2\cos t}} \mat{
+        \frac{\i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \sqrt{1 \mp \cos t}
+    }
+\end{gather*}
+Dokážeme čtvrtý bod zadání:
+\begin{align*}
+    \bra{\pm} \Parity \ket{\pm} &=
+    \frac{1}{2\cos t}
+    \mat{
+        \frac{\i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \sqrt{1 \mp \cos t}
+    }^{\!+}
+    \mat{ 1 \\ & -1 }
+    \mat{
+        \frac{\i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \sqrt{1 \mp \cos t}
+    }
+    =
+    \frac{1}{2\cos t} \left(
+        \frac{\sin^2 t}{1 \mp \cos t} - (1 \mp \cos t)
+    \right)
+    = \frac{\pm 2 \cos t}{2 \cos t}
+    = \pm 1
+    \\[10pt]
+    \bra{\pm} \Parity \ket{\mp} &=
+    \frac{1}{2\cos t}
+    \mat{
+        \frac{\i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \sqrt{1 \mp \cos t}
+    }^{\!+}
+    \mat{ 1 \\ & -1 }
+    \mat{
+        \frac{\i \sin t}{\sqrt{1 \pm \cos t}} \\[7pt]
+        \sqrt{1 \pm \cos t}
+    }
+    =
+    \frac{1}{2\cos t} \left(
+        \frac{\sin^2 t}{\sqrt{1 - \cos^2 t}} - \sqrt{1 - \cos^2 t}
+    \right)
+    = 0
+\end{align*}
+Nyní přistoupíme k odvození relace úplnosti a skalárního součinu.
+\begin{gather*}
+    \sum_n (-1)^n \ket{n} \bra{n} \Parity
+    \; = \;
+    \left(
+        \ket{+} \! \bra{+}
+        \; - \;
+        \ket{-} \! \bra{-}
+    \right)
+    \Parity
+    \\
+    (2 \cos t)
+    \ket\pm \! \bra\pm \Parity =
+    \mat{
+        \frac{\i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \sqrt{1 \mp \cos t}
+    } \!
+    \mat{
+        \frac{\i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \sqrt{1 \mp \cos t}
+    }^{\!+} \!\!
+    \mat{ 1 \\ & \hspace{-.8em} -1 }
+    = \mat{
+        \frac{\sin^2 t}{1 \mp \cos t} & \i \sin t \\[7pt]
+        -\i \sin t & 1 \mp \cos t
+    } \! \mat{ 1 \\ & \hspace{-.8em} -1 }
+    = \mat{
+        \frac{\sin^2 t}{1 \mp \cos t} & -\i \sin t \\[7pt]
+        -\i \sin t & -1 \pm \cos t
+    }
+\end{gather*}
+\begin{align*}
+    \sum_n (-1)^n \ket{n} \bra{n} \Parity
+    &=
+    \frac{1}{2\cos t} \smat[0.9]{
+        \frac{\sin^2 t}{1 - \cos t} & -\i \sin t \\[7pt]
+        -\i \sin t & -1 + \cos t
+    }
+    -
+    \frac{1}{2\cos t} \smat[0.9]{
+        \frac{\sin^2 t}{1 + \cos t} & -\i \sin t \\[7pt]
+        -\i \sin t & -1 - \cos t
+    }
+    = \frac{1}{2\cos t} \smat[0.9]{
+        \frac{\sin^2 t (2 \cos t)}{1 - \cos^2 t} & 0 \\
+        0 & 2 \cos t
+    }
+    = \smat[0.9]{1 \\ & 1}
+    \\[10pt]
+    \Cop = \sum_n \ket{n} \bra{n} \Parity
+    &=
+    \frac{1}{2\cos t} \smat[0.9]{
+        \frac{\sin^2 t}{1 - \cos t} & -\i \sin t \\[7pt]
+        -\i \sin t & -1 + \cos t
+    }
+    +
+    \frac{1}{2\cos t} \smat[0.9]{
+        \frac{\sin^2 t}{1 + \cos t} & -\i \sin t \\[7pt]
+        -\i \sin t & -1 - \cos t
+    }
+    =
+    \mat{
+        \sec t & -\i \tg t \\
+        -\i \tg t & -\sec t
+    }
+\end{align*}
+Přistoupíme k poslední části, kterou je ověření vlastností operátoru $\Cop$.
+\begin{align*}
+    \Cop^2 =
+    \mat{
+        \sec t & -\i \tg t \\
+        -\i \tg t & -\sec t
+    }^2
+    =
+    \mat{
+        \sec^2 t - \tg^2 t & -\i \tg t \sec t + \i \tg t \sec t \\
+        \i \tg t \sec t + \i \tg t \sec t & - \tg^2 t + \sec^2 t
+    }
+    =
+    \mat{
+        \frac{1 - \sin^2 t}{\cos^2 t} & 0 \\
+        0 & \frac{1 - \sin^2 t}{\cos^2 t}
+    }
+    =
+    \mat{ 1 \\ & 1}
+\end{align*}
+\begin{align*}
+    \sqrt{2\cos t} \Cop \ket\pm
+    =
+    \mat{
+        \sec t & -\i\tg t \\
+        -\i\tg t & -\sec t
+    }
+    \mat{
+        \frac{\i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \sqrt{1 \mp \cos t}
+    }
+    =
+    \mat{
+        \i \; \frac{\sin t}{\cos t} \; \frac{1 - 1 \mp \cos t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \frac{\sin^2 t - 1 \mp \cos t}{\cos t \sqrt{1 \mp \cos t}}
+    }
+    =
+    \mat{
+        \frac{\pm \i \sin t}{\sqrt{1 \mp \cos t}} \\[7pt]
+        \pm \sqrt{1 \mp \cos t}
+    }
+    =
+    \pm \sqrt{2\cos t} \ket\pm \: ,
+\end{align*}
+tedy $\Cop\ket\pm=\pm\ket\pm$. Poslední dva body plynou triviálně z tohoto výsledku a již dokázaných tvrzení.
+\begin{gather*}
+    \Cop\ket{+}\!\bra{+}\Parity + \Cop\ket{-}\!\bra{-}\Parity
+    = \ket{+}\!\bra{+}\Parity - \ket{-}\!\bra{-}\Parity = \1
+    \\
+    \bra{m} \Parity \Cop \ket{n} = \bra{m} \Parity (-1)^n \ket{n} = (-1)^n \, (-1)^m \, \delta_{mn} = \delta_{mn}
 \end{gather*}
 
 
