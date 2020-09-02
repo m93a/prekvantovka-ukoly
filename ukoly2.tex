@@ -107,6 +107,7 @@
 \newcommand{\bigddot}[1]{\accentset{\bigcdot\bigcdot}{#1}}
 
 \def\tg{\operatorname{tg}}
+\def\ctg{\operatorname{ctg}}
 
 \def\kzero{\ket{\mask{+}{0}}}
 \def\kone{\ket{\mask{+}{1}}}
@@ -725,5 +726,436 @@ tedy $\Cop\ket\pm=\pm\ket\pm$. Poslední dva body plynou triviálně z tohoto v�
     \bra{m} \Parity \Cop \ket{n} = \bra{m} \Parity (-1)^n \ket{n} = (-1)^n \, (-1)^m \, \delta_{mn} = \delta_{mn}
 \end{gather*}
 
+
+\section{Spin ve vodíku, spin-1, pozitronium}
+\subsection{Zadání}
+Máme atom vodíku, složený z elektronu se spinem $\nicefrac{1}{2}$ a protonu se spinem $\nicefrac{1}{2}$. Hamiltonián systému je
+\begin{equation*}
+    \hat H
+    = A \, \hat{\vec S}^\const{e} \!\cdot\! \hat{\vec S}^\const{p}
+    - K_e \, \hat{\vec S}^\const{e} \!\cdot\! \vec B
+    - K_p \, \hat{\vec S}^\const{p} \!\cdot\! \vec B
+    \: , \quad
+    \vec B = (0, 0, B)
+    \: .
+\end{equation*}
+Nalezněte energie stacionárních stavů.
+
+Dále uvažujte, spin-$1$ částici se spinem orientovaným ve směru osy $z$ a vypočtěte $\left| \braket{+z}{0 \vec{n}} \right|^2$ (tj. pravděpodobnost naměření spinu $0$ podél obecné osy $\vec n$) a $\bra{0z} \hat P_{\pm x} \ket{0z}$ (tedy pravděpodobnost naměření $0z$ po průchodu přístrojem, který změří spin ve směru $x$ a odstíní stav $0x$).
+
+Nakonec mějme pozitronium (proton v atomu vodíku nahradíme pozitronem) s hamiltoniánem
+\begin{equation*}
+    \hat H
+    = A \, \hat{\vec S}^{\const{e}^-} \!\! \cdot \hat{\vec S}^{\const{e}^+}
+    + B \hat S^2
+    \: ,
+\end{equation*}
+nalezněte energie stacionárních stavů.
+
+\subsection{Řešení}
+Budeme pracovat v součinové bázi vlastních stavů operátorů $\hat S_{\!z}^\const{e}$ a $\hat S_{\!z}^\const{p}$:
+\begin{equation*}
+    \ket{\pm\pm} = \ket{\pm z_\const{e}} \otimes \ket{\pm z_\const{p}} \: .
+\end{equation*}
+Provedeme polární rozklad hamiltoniánu a vyjádříme ho v bázi $\ket{\pm\pm}$:
+\begin{equation*}
+    \hat H
+    = A \, \hat{\vec S}^{\const{e}^+} \cdot \hat{\vec S}^{\const{e}^-} + B \hat S^2
+    = A \, \frac{1}{2} \! \left( \hat S_{\!+}^\const{e} \hat S_{\!-}^\const{p} + \hat S_{\!-}^\const{e} \hat S_{\!+}^\const{p} \right) + A \,\hat S_{\!z}^\const{e} \, \hat S_{\!z}^\const{p} - K_\const{e} \, B \, \hat S_{\!z}^\const{e} - K_\const{p} \, B \, \hat S_{\!z}^\const{p}
+\end{equation*}
+\begin{align*}
+    \hat H \ket{++}
+    &= \left(A \, \frac{1}{2} \! \left( \hat S_{\!+}^\const{e} \hat S_{\!-}^\const{p} + \hat S_{\!-}^\const{e} \hat S_{\!+}^\const{p} \right) + A \,\hat S_{\!z}^\const{e} \, \hat S_{\!z}^\const{p} - K_\const{e} \, B \, \hat S_{\!z}^\const{e} - K_\const{p} \, B \, \hat S_{\!z}^\const{p}\right) \ket{++} \\
+    &= \left( A \, \frac{1}{2} \, 0 + A \,\tfrac{1}{2} \, \tfrac{1}{2} - K_\const{e} \, B \, \tfrac{1}{2} - K_\const{p} \, B \, \tfrac{1}{2} \right) \ket{++}
+    = \left( \frac{A}{4} - \frac{B}{2} \left( K_\const{e} + K_\const{p}\right) \right) \ket{++}
+    \\\\
+    \hat H \ket{--}
+    &= \left(A \, \frac{1}{2} \! \left( \hat S_{\!+}^\const{e} \hat S_{\!-}^\const{p} + \hat S_{\!-}^\const{e} \hat S_{\!+}^\const{p} \right) + A \,\hat S_{\!z}^\const{e} \, \hat S_{\!z}^\const{p} - K_\const{e} \, B \, \hat S_{\!z}^\const{e} - K_\const{p} \, B \, \hat S_{\!z}^\const{p}\right) \ket{--} \\
+    &= \left( A \, \frac{1}{2} \, 0 + A \left( -\tfrac{1}{2} \right) \left( -\tfrac{1}{2} \right) - K_\const{e} \, B \left( -\tfrac{1}{2} \right) - K_\const{p} \, B \left( -\tfrac{1}{2} \right) \right) \ket{--}
+    = \left( \frac{A}{4} + \frac{B}{2} \left( K_\const{e} + K_\const{p}\right) \right) \ket{--}
+    \\\\
+    \hat H \ket{+-}
+    &= \left(A \, \frac{1}{2} \! \left( \hat S_{\!+}^\const{e} \hat S_{\!-}^\const{p} + \hat S_{\!-}^\const{e} \hat S_{\!+}^\const{p} \right) + A \,\hat S_{\!z}^\const{e} \, \hat S_{\!z}^\const{p} - K_\const{e} \, B \, \hat S_{\!z}^\const{e} - K_\const{p} \, B \, \hat S_{\!z}^\const{p}\right) \ket{+-} \\
+    &= A \, \frac{1}{2} \! \left( 0 \;+\; \ket{-+} \right) + \left(A \, \tfrac{1}{2} \left( -\tfrac{1}{2} \right) - K_\const{e} \, B \, \tfrac{1}{2} - K_\const{p} \, B \left( -\tfrac{1}{2} \right) \right)\ket{+-} \\
+    &= \frac{A}{2} \ket{-+} + \left( - \frac{A}{4} + \frac{B}{2} \left(-K_\const{e} + K_\const{p} \right)\right) \ket{+-}
+    \\\\
+    \hat H \ket{-+}
+    &= \left(A \, \frac{1}{2} \! \left( \hat S_{\!+}^\const{e} \hat S_{\!-}^\const{p} + \hat S_{\!-}^\const{e} \hat S_{\!+}^\const{p} \right) + A \,\hat S_{\!z}^\const{e} \, \hat S_{\!z}^\const{p} - K_\const{e} \, B \, \hat S_{\!z}^\const{e} - K_\const{p} \, B \, \hat S_{\!z}^\const{p}\right) \ket{-+} \\
+    &= A \, \frac{1}{2} \! \left( \ket{+-} \;+\; 0 \right) + \left(A \left( -\tfrac{1}{2} \right) \tfrac{1}{2} - K_\const{e} \, B \left( -\tfrac{1}{2} \right) - K_\const{p} \, B \, \tfrac{1}{2} \right)\ket{-+} \\
+    &= \frac{A}{2} \ket{+-} + \left( - \frac{A}{4} + \frac{B}{2} \left(K_\const{e} - K_\const{p} \right)\right) \ket{-+}
+\end{align*}
+Vidíme, že je hamiltonián částečně diagonalizovaný, stavy $\ket{++}$ a $\ket{--}$ jsou jeho vlastní stavy. Nalezneme ještě vlastní energie odpovídající superpozicím stavů $\ket{+-}$ a $\ket{-+}$:
+\begin{gather*}
+    \bra{\pm\mp} \hat H \ket{\pm\mp}
+    = \mat{
+        -\dfrac{A}{4} + \dfrac{B}{2}\left(-K_\const{e} + K_\const{p}\right) & \dfrac{A}{2} \\[15pt]
+        \dfrac{A}{2} & -\dfrac{A}{4} - \dfrac{B}{2}\left(-K_\const{e} + K_\const{p}\right)
+    } \eqqcolon M
+    \: , \quad
+    \alpha \coloneqq \frac{A}{4}
+    \: , \quad
+    \beta \coloneqq \frac{B}{2}\left(-K_\const{e} + K_\const{p}\right)
+    \: .
+    \\\\
+    M = \mat{
+        -\alpha + \beta & 2\alpha \\
+        2\alpha & -\alpha - \beta
+    }
+    \: , \quad
+    0 =
+    \left| M - \lambda \1 \right| = \begin{vmatrix}
+        -\alpha + \beta - \lambda & 2\alpha \\
+        2\alpha & \!\!\! -\alpha - \beta - \lambda
+    \end{vmatrix}
+    = \lambda^2 + 2\alpha\lambda + \left(-3\alpha^2 - \beta^2\right)
+    \\\\
+    \lambda
+    = \frac{-2\alpha \pm \sqrt{4\alpha^2 - 4\left(-3\alpha^2 - \beta^2\right)}}{2}
+    = -\alpha \pm \sqrt{4\alpha^2 + \beta^2}
+    = -\frac{A}{4} \pm \frac{1}{2} \sqrt{A^2 + B^2 \left(K_\const{e} - K_\const{p}\right)^2}
+\end{gather*}
+Máme tedy energie stacionárních stavů:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ r|l }
+        $E_0$ &
+        $-\dfrac{A}{4} - \dfrac{1}{2} \sqrt{A^2 + B^2 \left(K_\const{e} - K_\const{p}\right)^2}$
+        \\[10pt]\hline
+        \rule{0pt}{1.5\normalbaselineskip}
+        $E_1$ &
+        $-\dfrac{A}{4} + \dfrac{1}{2} \sqrt{A^2 + B^2 \left(K_\const{e} - K_\const{p}\right)^2}$
+        \\[10pt]\hline
+        \rule{0pt}{1.5\normalbaselineskip}
+        $E_2$ &
+        $+\dfrac{A}{4} - \dfrac{B}{2} \left( K_\const{e} + K_\const{p}\right)$
+        \\[10pt]\hline
+        \rule{0pt}{1.5\normalbaselineskip}
+        $E_3$ &
+        $+\dfrac{A}{4} + \dfrac{B}{2} \left( K_\const{e} + K_\const{p}\right)$
+    \end{tabular}
+\end{table}
+
+Pokračujeme spin-1 částicí. Zvolíme si bázi $\ket{+z}, \ket{0z}, \ket{-z}$, v ní vyjádříme $\hat{\vec S}$:
+\begin{align*}
+    \hat S_x &= \frac{1}{\oldsqrt{2}} \mat{
+        0 & 1 & 0 \\
+        1 & 0 & 1 \\
+        0 & 1 & 0
+    },
+    &
+    \hat S_y &= \frac{1}{\oldsqrt{2}} \mat{
+        0 & -\i & 0 \\
+        \i & 0 & -\i \\
+        0 & \i & 0
+    },
+    &
+    \hat S_z &= \mat{
+        1 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & -1
+    },
+    &
+    \hat{\vec S} &= \mat{
+        \hat S_x \\
+        \hat S_y \\
+        \hat S_z
+    }.
+\end{align*}
+Budeme měřit spin v obecném směru $\vec n$, který si parametrizujeme sférickými souřadnicemi:
+\begin{equation*}
+    \vec n = \mat{
+        \sin \vartheta \cos \varphi \\
+        \sin \vartheta \sin \varphi \\
+        \cos \vartheta
+    }.
+\end{equation*}
+Zajímá nás, s jakou pravděpodobností naměříme stav
+\begin{gather*}
+    \left(\hat{\vec S} \cdot \vec n\right) \ket{0\vec n} = 0 \ket{0\vec n}
+    \;\iff\;
+    \ker \hat{\vec S} \cdot \vec n = \{\, \ket{0 \vec n} \,\}
+    \\\\
+    \hat S \cdot \vec n
+    = \mat{
+        \cos \vartheta &
+        \dfrac{\sin \vartheta}{\oldsqrt{2}} \, \e{-\i \varphi} &
+        0
+        \\[15pt]
+        \dfrac{\sin \vartheta}{\oldsqrt{2}} \, \e{+\i \varphi} \!\!&
+        0 & \!\!
+        \dfrac{\sin \vartheta}{\oldsqrt{2}} \, \e{-\i \varphi}
+        \\[15pt]
+        0 &
+        \dfrac{\sin \vartheta}{\oldsqrt{2}} \, \e{+\i \varphi} &
+        -\cos \vartheta
+    }
+    \sim \mat{
+        \oldsqrt{2} \ctg \vartheta \, \e{+\i \varphi} \ph{+}&
+        1  &
+        0
+        \\[15pt]
+        \e{+\i \varphi} &
+        0 &
+        \e{-\i \varphi}
+        \\[15pt]
+        0 &
+        1 &
+        \ph{+}-\oldsqrt{2} \ctg \vartheta \, \e{-\i \varphi}
+    }
+    \to \mat{
+        -\e{-\i \varphi} \\[15pt]
+        \oldsqrt{2} \ctg \vartheta \\[15pt]
+        \e{+\i \varphi}
+    }
+    \\\\
+    \sqrt{
+        |-\e{-\i \varphi}|^2 +
+        |\oldsqrt{2} \ctg \vartheta|^2 +
+        |\e{+\i \varphi}|^2
+    }
+    = \sqrt{
+        2 + 2 \ctg^2 \vartheta
+    }
+    = \sqrt{2} \sqrt{1 + \frac{\cot^2 \vartheta}{\sin^2 \vartheta}}
+    = \frac{\oldsqrt{2}}{\sin \vartheta}
+    \\\\
+    \ket{0\vec n}
+    =
+    \frac{1}{\; \dfrac{\oldsqrt{2}}{\sin \vartheta} \;}
+    \mat{
+        -\e{-\i \varphi} \\[7pt]
+        \oldsqrt{2} \ctg \vartheta \\[7pt]
+        \e{+\i \varphi}
+    }
+    =
+    \frac{1}{\oldsqrt 2}
+    \mat{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }
+\end{gather*}
+\begin{gather*}
+    \left| \braket{+z}{0\vec n} \right|^2
+    = \left|
+    \frac{1}{\oldsqrt 2} \; \left( -\e{-\i \varphi} \sin \vartheta \right) \right|^2
+    = \frac{1}{2} \sin^2 \vartheta
+    \: .
+\end{gather*}
+Projekci do obecného směru tedy máme spočtenou. Vypočítáme ještě výsledek vylepšeného Stern-Gerlachova experimentu:
+\begin{gather*}
+    \hat P_{\pm x}
+    = \ket{x+}\!\bra{x+} \;+\; \ket{x-}\!\bra{x-}
+    = \mat{
+        \nicefrac{1}{2} \\
+        \nicefrac{1}{\oldsqrt 2} \\
+        \nicefrac{1}{2}
+    } \mat{
+        \nicefrac{1}{2} &
+        \nicefrac{1}{\oldsqrt 2} &
+        \nicefrac{1}{2}
+    }
+    + \mat{
+        \nicefrac{1}{2} \\
+        \nicefrac{-1}{\oldsqrt 2} \\
+        \nicefrac{1}{2}
+    } \mat{
+        \nicefrac{1}{2} &
+        \nicefrac{-1}{\oldsqrt 2} &
+        \nicefrac{1}{2}
+    } = \mat{
+        \nicefrac{1}{2} & 0 & \nicefrac{1}{2} \\
+        0 & 1 & 0 \\
+        \nicefrac{1}{2} & 0 & \nicefrac{1}{2}
+    }
+    \\
+    \left| \bra{0z} \hat P_{\pm x} \ket{0z} \right|^2
+    =
+    \left|
+        \mat{0 & 1 & 0}
+        \mat{
+            \nicefrac{1}{2} & 0 & \nicefrac{1}{2} \\
+            0 & 1 & 0 \\
+            \nicefrac{1}{2} & 0 & \nicefrac{1}{2}
+        }
+        \mat{0 \\ 1 \\ 0}
+    \right|^2
+    = 1
+    \: .
+\end{gather*}
+Nakonec nalezneme energie stacionárních stavů pozitronia. Budeme opět pracovat v součinové bázi
+\begin{equation*}
+    \ket{\pm\pm} = \ket{\pm z_{\const{e}^+}} \otimes \ket{\pm z_{\const{e}^-}} \: ,
+\end{equation*}
+a opět si vyjádříme polární  rozklad hamiltoniánu. Abychom se v neutopili v indexech, přejmenujeme si operátory spinů elektronu a pozitronu na $\hat{\vec X}, \hat{\vec Y}$.
+\begin{equation*}
+    \hat{\vec X} \coloneqq \hat{\vec S}^{\const{e}^-},
+    \quad
+    \hat{\vec Y} \coloneqq \hat{\vec S}^{\const{e}^+}
+\end{equation*}
+\begin{align*}
+    \hat H
+    &= A \, \hat{\vec X} \!\cdot \hat{\vec Y}
+    + B \hat S^2
+    =
+    A \, \hat{\vec X} \!\cdot \hat{\vec Y}
+    + B \, \big(\hat{\vec X} + \hat{\vec Y}\big) \cdot \big(\hat{\vec X} + \hat{\vec Y}\big)
+    = B (\hat X^2 + \hat Y^2)
+    + (A + 2B) \, \hat{\vec X} \! \cdot \hat{\vec Y}
+    - B \big[ \hat{\vec X} \:{;}\: \hat{\vec Y} \big]
+    \\[5pt]
+    &= B \big(
+        \frac{1}{2} (\hat X_+ \hat X_- + \hat X_- \hat X_+ + \hat Y_+ \hat Y_- + \hat Y_- \hat Y_+)
+        + {\hat X_z}^2 + {\hat Y_z}^2
+    \big)
+    + (A + 2B)\big(
+        \frac{1}{2} (\hat X_+ \hat Y_- + \hat X_- \hat Y_+) + \hat X_z \hat Y_z
+    \big)
+    \\[5pt]
+    &= \frac{B}{2} \big(
+        \hat X_+ \hat X_- + \hat X_- \hat X_+ + \hat Y_+ \hat Y_- + \hat Y_- \hat Y_+
+        + 2 {\hat X_z}^2 + 2 {\hat Y_z}^2
+    \big)
+    + \big( \frac{A}{2} + B \big)\big(
+        \hat X_+ \hat Y_- + \hat X_- \hat Y_+
+        + 2 \hat X_z \hat Y_z
+    \big)
+    \: ,
+\end{align*}
+kde $[ \hat{\vec A} \:{;}\: \hat{\vec B} ]$ je komutátor skalárního součinu
+\begin{gather*}
+    \big[ \hat{\vec A} \:{;}\: \hat{\vec B} \big]
+    = \hat{\vec A} \cdot \hat{\vec B} - \hat{\vec B} \cdot \hat{\vec A}
+    = \comm{\hat A_x}{\hat B_x} + \comm{\hat A_y}{\hat B_y} + \comm{\hat A_z}{\hat B_z}
+    \: ,
+\end{gather*}
+a pro $\hat{\vec X}, \hat{\vec Y}$ je nulový, protože operují na jiných částech součinového prostoru.
+
+Pokračujeme výpočtem působení $\hat H$ na bázové stavy.
+\begin{align*}
+    \hat H \ket{++}
+    &= \left(
+        \frac{B}{2} \big(
+            \hat X_+ \hat X_- + \hat X_- \hat X_+ + \hat Y_+ \hat Y_- + \hat Y_- \hat Y_+
+            + 2 {\hat X_z}^2 + 2 {\hat Y_z}^2
+        \big)
+        + \big( \frac{A}{2} + B \big)\big(
+            \hat X_+ \hat Y_- + \hat X_- \hat Y_+
+            + 2 \hat X_z \hat Y_z
+        \big)
+    \right) \ket{++}
+    \\[5pt]
+    &= \left(
+        \frac{B}{2} \big(
+            1 + 0 + 1 + 0
+            + 2 \left(\nicefrac{1}{2}\right)^2 + 2 \left(\nicefrac{1}{2}\right)^2
+        \big)
+        + \big( \frac{A}{2} + B \big)\big(
+            0 + 0
+            + 2 \left(\nicefrac{1}{2}\right) \left(\nicefrac{1}{2}\right)
+        \big)
+    \right) \ket{++}
+    = \left( \frac{A}{4} + 2B \right) \ket{++}
+    \\\\
+    \hat H \ket{--}
+    &= \left(
+        \frac{B}{2} \big(
+            \hat X_+ \hat X_- + \hat X_- \hat X_+ + \hat Y_+ \hat Y_- + \hat Y_- \hat Y_+
+            + 2 {\hat X_z}^2 + 2 {\hat Y_z}^2
+        \big)
+        + \big( \frac{A}{2} + B \big)\big(
+            \hat X_+ \hat Y_- + \hat X_- \hat Y_+
+            + 2 \hat X_z \hat Y_z
+        \big)
+    \right) \ket{--}
+    \\[5pt]
+    &= \left(
+        \frac{B}{2} \big(
+            0 + 1 + 0 + 1
+            + 2 \left(\nicefrac{-1}{2}\right)^2 + 2 \left(\nicefrac{-1}{2}\right)^2
+        \big)
+        + \big( \frac{A}{2} + B \big)\big(
+            0 + 0
+            + 2 \left(\nicefrac{-1}{2}\right) \left(\nicefrac{-1}{2}\right)
+        \big)
+    \right) \ket{--}
+    = \left( \frac{A}{4} + 2B \right) \ket{--}
+    \\\\
+    \hat H \ket{+-}
+    &= \left(
+        \frac{B}{2} \big(
+            \hat X_+ \hat X_- + \hat X_- \hat X_+ + \hat Y_+ \hat Y_- + \hat Y_- \hat Y_+
+            + 2 {\hat X_z}^2 + 2 {\hat Y_z}^2
+        \big)
+        + \big( \frac{A}{2} + B \big)\big(
+            \hat X_+ \hat Y_- + \hat X_- \hat Y_+
+            + 2 \hat X_z \hat Y_z
+        \big)
+    \right) \ket{+-}
+    \\[5pt]
+    &=
+    \frac{B}{2} \big(
+        1 + 0 + 0 + 1
+        + 2 \left(\nicefrac{1}{2}\right)^2 + 2 \left(\nicefrac{-1}{2}\right)^2
+    \big)
+    \ket{+-}
+    +
+    \big( \frac{A}{2} + B \big)\big(
+        0 + \ket{-+}
+        + 2 \left(\nicefrac{1}{2}\right) \left(\nicefrac{-1}{2}\right) \ket{+-}
+    \big)
+    \\[5pt]
+    &= \big( -\frac{A}{4} + B \big) \ket{+-}
+    + \big( \frac{A}{2} + B \big) \ket{-+}
+    \\\\
+    \hat H \ket{-+}
+    &= \left(
+        \frac{B}{2} \big(
+            \hat X_+ \hat X_- + \hat X_- \hat X_+ + \hat Y_+ \hat Y_- + \hat Y_- \hat Y_+
+            + 2 {\hat X_z}^2 + 2 {\hat Y_z}^2
+        \big)
+        + \big( \frac{A}{2} + B \big)\big(
+            \hat X_+ \hat Y_- + \hat X_- \hat Y_+
+            + 2 \hat X_z \hat Y_z
+        \big)
+    \right) \ket{-+}
+    \\[5pt]
+    &=
+    \frac{B}{2} \big(
+        0 + 1 + 1 + 0
+        + 2 \left(\nicefrac{-1}{2}\right)^2 + 2 \left(\nicefrac{1}{2}\right)^2
+    \big)
+    \ket{-+}
+    +
+    \big( \frac{A}{2} + B \big)\big(
+        \ket{+-} + 0
+        + 2 \left(\nicefrac{-1}{2}\right) \left(\nicefrac{1}{2}\right) \ket{-+}
+    \big)
+    \\[5pt]
+    &= \big( -\frac{A}{4} + B \big) \ket{-+}
+    + \big( \frac{A}{2} + B \big) \ket{+-}
+\end{align*}
+Vidíme tedy, že $\ket{++}, \ket{--}$ jsou vlastní stavy degenerované energetické hladiny $E = \frac{A}{4} + 2B$. Dopočítáme vlastní energie v podprostoru $\ket{\pm\mp}$:
+\begin{gather*}
+    \bra{\pm\mp} \hat H \ket{\pm\mp}
+    = \mat{
+        -\dfrac{A}{4} + B & \ph{-}\dfrac{A}{2} + B \\[15pt]
+        \ph{-}\dfrac{A}{2} + B & -\dfrac{A}{4} + B
+    }
+    \eqqcolon M
+    \: , \quad
+    0 = \left| M - \lambda \1 \right|^2
+    = \begin{vmatrix}
+        \; -\dfrac{A}{4} + B - \lambda & \dfrac{A}{2} + B \; \\[15pt]
+        \; \dfrac{A}{2} + B & -\dfrac{A}{4} + B - \lambda \;
+    \end{vmatrix}
+    \\\\
+    0 = \big(-\frac{A}{4} + B - \lambda \big)^2 - \big( \frac{A}{2} + B \big)^2
+    \;\iff\;
+    \lambda = -\frac{A}{4} + B \pm \big( \frac{A}{2} + B \big)
+    \;\iff\;
+    \lambda \in \big\{ -\frac{3A}{4}, \; \frac{A}{4} + 2B \big\}
+\end{gather*}
+Vidíme tedy, že pozitronium má jednu nedegenerovanou energetickou hladinu $E_0 = -\nicefrac{3}{4} \, A$ a jednu trojnásobně degenerovanou hladinu $E_1 = \nicefrac{A}{4} + 2B$. Tyto dvě hladiny odpovídají stavům s celkovým spinem $S=0$, resp. $S=1$.
 
 \end{document}
