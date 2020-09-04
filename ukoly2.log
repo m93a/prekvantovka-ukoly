@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.2.26)  4 SEP 2020 17:42
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2020.2.26)  5 SEP 2020 00:25
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -506,24 +506,24 @@ Overfull \hbox (5.13103pt too wide) detected at line 1140
 []
  []
 
-[8] [9] [10]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1548.
- [11]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1548.
+[8] [9] [10] [11]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1661.
+ [12]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1661.
  (./ukoly2.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1548.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1548.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1661.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1661.
 Package rerunfilecheck Info: File `ukoly2.out' has not changed.
 (rerunfilecheck)             Checksum: 438CEF3A270C1E76AFD502944B7B10AA.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1548.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1661.
  ) 
 Here is how much of TeX's memory you used:
- 12285 strings out of 494328
- 183068 string characters out of 6162944
+ 12287 strings out of 494328
+ 183121 string characters out of 6162944
  308408 words of memory out of 5000000
- 16052 multiletter control sequences out of 15000+600000
- 57963 words of font info for 83 fonts, out of 8000000 for 9000
+ 16053 multiletter control sequences out of 15000+600000
+ 57971 words of font info for 84 fonts, out of 8000000 for 9000
  360 hyphenation exceptions out of 8191
  40i,22n,46p,923b,405s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ukoly2.pdf (11 pages).
+Output written on ukoly2.pdf (12 pages).

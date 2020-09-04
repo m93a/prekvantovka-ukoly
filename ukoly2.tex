@@ -1164,7 +1164,7 @@ Vidíme tedy, že pozitronium má jednu nedegenerovanou energetickou hladinu $E_
 \section{Jemné štěpení (spin-orbitální interakce)}
 
 \subsection{Zadání}
-Máme atom vodíku v p-stavu, jeho hamiltonián je
+Máme atom v p-stavu, jeho hamiltonián je
 \begin{equation*}
     \hat H = A \, \vechat S \cdot \vechat L \: .
 \end{equation*}
@@ -1543,6 +1543,119 @@ Vynásobíme-li výraz stavem $\ket{j,m}$, stejným způsobem jako nahoře, vyjd
     \forall m = -\tfrac{3}{2}, \; {...}, \; \tfrac{3}{2}
     \: .
 \end{equation*}
+Nakonec nalezneme vlastní čísla hamiltoniánu
+\begin{equation*}
+    \hat H
+    \; = \;
+    A \, \vechat S \cdot \vechat L
+    - K \big( \vechat S + \frac{1}{2} \vechat L \big) \cdot \vec B
+    \; = \;
+    \hat H_0 - KB
+    \big( \hat S_z + \tfrac{1}{2} \hat L_z \big)
+    \: ,
+\end{equation*}
+kde $\hat H_0 = A \, \vechat S \cdot \vechat L$ je hamiltonián z prvního úkolu. Je výhodné opět pracovat v bázi $\ket{\pm\pm}$.
+\begin{align*}
+    \big( \hat S_z + \tfrac{1}{2} \hat L_z \big) \ket{++}
+    &=
+    \big( +\frac{1}{2} + \frac{1}{2} (+1) \big) \ket{++}
+    = +\ket{++}
+    \\\\
+    \big( \hat S_z + \tfrac{1}{2} \hat L_z \big) \ket{--}
+    &=
+    \big( -\frac{1}{2} + \frac{1}{2} (-1) \big) \ket{--}
+    = -\ket{--}
+    \\\\
+    \big( \hat S_z + \tfrac{1}{2} \hat L_z \big) \ket{+\0}
+    &=
+    \big( +\frac{1}{2} + \frac{1}{2} (\mask{+1}{0}) \big) \ket{+\0}
+    = +\frac{1}{2} \ket{+\0}
+    \\\\
+    \big( \hat S_z + \tfrac{1}{2} \hat L_z \big) \ket{-\0}
+    &=
+    \big( -\frac{1}{2} + \frac{1}{2} (\mask{+1}{0}) \big) \ket{-\0}
+    = -\frac{1}{2} \ket{-\0}
+    \\\\
+    \big( \hat S_z + \tfrac{1}{2} \hat L_z \big) \ket{+-}
+    &=
+    \big( +\frac{1}{2} + \frac{1}{2} (-1) \big) \ket{+-}
+    = \mask{+1}{0} \ket{+-}
+    \\\\
+    \big( \hat S_z + \tfrac{1}{2} \hat L_z \big) \ket{-+}
+    &=
+    \big( -\frac{1}{2} + \frac{1}{2} (+1) \big) \ket{-+}
+    = \mask{+1}{0} \ket{-+}
+\end{align*}
+\begin{align*}
+    \hat H_0 \ket{++}
+    &= \frac{A}{2} \ket{++}
+    &
+    \hat H_0 \ket{--}
+    &= \frac{A}{2} \ket{--}
+    &
+    \hat H_0 \ket{+-}
+    &= \frac{A}{\oldsqrt 2} \ket{-\0}
+    - \frac{A}{2} \ket{+-}
+    \\
+    \hat H_0 \ket{+\0}
+    &= \frac{A}{\oldsqrt 2} \ket{-+}
+    &
+    \hat H_0 \ket{-\0}
+    &= \frac{A}{\oldsqrt 2} \ket{+-}
+    &
+    \hat H_0 \ket{-+}
+    &= \frac{A}{\oldsqrt 2} \ket{+\0}
+    - \frac{A}{2} \ket{-+}
+\end{align*}
+\begin{gather*}
+    \hat H \ket{++} = \big( \frac{A}{2} - KB \big) \ket{++}
+    \\[8pt]
+    \hat H \ket{--} = \big( \frac{A}{2} + KB \big) \ket{--}
+    \\[15pt]
+    \hat H \ket {+\0} = \frac{A}{\oldsqrt 2} \ket{-+} - \frac{KB}{2} \ket{+\0}
+    \\[8pt]
+    \hat H \ket {-\0} = \frac{A}{\oldsqrt 2} \ket{+-} + \frac{KB}{2} \ket{-\0}
+    \\[15pt]
+    \hat H_0 \ket{+-} = \frac{A}{\oldsqrt 2} \ket{-\0} - \frac{A}{2} \ket{+-}
+    \\[8pt]
+    \hat H_0 \ket{-+} = \frac{A}{\oldsqrt 2} \ket{+\0} - \frac{A}{2} \ket{-+}
+\end{gather*}
+\begin{gather*}
+    M_+ = \frac{1}{2} \mat{
+        -KB & \oldsqrt{2} A \\[8pt]
+        \oldsqrt{2} A & - A
+    }
+    \hspace{9em}
+    M_- = \frac{1}{2} \mat{
+        KB & \oldsqrt{2} A \\[8pt]
+        \oldsqrt{2} A & - A
+    }
+    \\\\
+    E = \frac{1}{4} \big(
+        -A - BK \pm (3A - BK)
+    \big)
+    \hspace{5em}
+    E = \frac{1}{4} \big(
+        -A - BK \pm (3A + BK)
+    \big)
+\end{gather*}
+Dostáváme tedy šest nedegenerovaných energetických hladin:
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{ r|l }
+        $E_1$ \Huge \strut & $-A - \dfrac{KB}{2}$
+        \\\hline
+        $E_2$ \Huge \strut & $-A$
+        \\\hline
+        $E_3$ \Huge \strut & $\dfrac{A}{2} - KB$
+        \\\hline
+        $E_4$ \Huge \strut & $\dfrac{A}{2} - \dfrac{KB}{2}$
+        \\\hline
+        $E_5$ \Huge \strut & $\dfrac{A}{2}$
+        \\\hline
+        $E_6$ \Huge \strut & $\dfrac{A}{2} + KB$
+    \end{tabular}
+\end{table}
 
 
 \end{document}
