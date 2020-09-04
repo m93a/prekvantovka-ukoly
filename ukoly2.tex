@@ -105,9 +105,11 @@
 
 \newcommand{\bigdot}[1]{\accentset{\bigcdot}{#1}}
 \newcommand{\bigddot}[1]{\accentset{\bigcdot\bigcdot}{#1}}
+\newcommand{\vechat}[1]{\hat{\vec{#1}}}
 
 \def\tg{\operatorname{tg}}
 \def\ctg{\operatorname{ctg}}
+\def\Span{\operatorname{span}}
 
 \def\kzero{\ket{\mask{+}{0}}}
 \def\kone{\ket{\mask{+}{1}}}
@@ -121,6 +123,7 @@
 \def\R{\mathbb{R}}
 \def\C{\mathbb{C}}
 \def\1{\mathbbm{1}}
+\def\0{\mask{+}{0}}
 
 \def\Parity{\hat{\mathcal P}}
 \def\Cop{\hat{\mathcal C}}
@@ -149,9 +152,9 @@ Zavedeme si jednotkový vektor $\vec n$ parametrizovaný sférickými souřadnic
         \cos \vartheta
     }
 \end{equation*}
-Zavedeme si operátor $\hat S_{\vec n} = \vec n \cdot \hat{\vec S}$, kde $\hat{\vec S}$ reprezentujeme Pauliho maticemi:
+Zavedeme si operátor $\hat S_{\vec n} = \vec n \cdot \vechat S$, kde $\vechat S$ reprezentujeme Pauliho maticemi:
 \begin{equation*}
-    \hat{\vec S} = \frac{1}{2} \mat{
+    \vechat S = \frac{1}{2} \mat{
         \smat[0.8]{0 & \ph{-} 1 \\ 1 & \ph{-} 0} \\[10pt]
         \smat[0.8]{0 & -\i \\ \i & \ph{-} 0} \\[10pt]
         \smat[0.8]{1 & \ph{-} 0 \\ 0 & -1}
@@ -236,9 +239,9 @@ Stav spinu $\ket{\psi(t)}$ začíná v čase $t=0$ jako $\ket{\pm z}$. S jakou p
 \subsection{Řešení}
 Hamiltonián systému je
 \begin{equation*}
-    \hat H = - K \; \hat{\vec S} \cdot \vec B,
+    \hat H = - K \; \vechat S \cdot \vec B,
 \end{equation*}
-kde $\hat{\vec S}$ reprezentujeme Pauliho maticemi. Využijeme rozklad $\hat{\vec S}$ na žebříkové operátory $\hat S_\pm$:
+kde $\vechat S$ reprezentujeme Pauliho maticemi. Využijeme rozklad $\vechat S$ na žebříkové operátory $\hat S_\pm$:
 \begin{equation*}
     \hat S_\pm
     = \hat S_\mathrm{x} \pm \i \hat S_\mathrm{y}
@@ -264,7 +267,7 @@ Podobně rozložíme $\vec B$:
 Nyní můžeme vyjádřit hamiltonián ve tvaru
 \begin{equation*}
     \hat H
-    = -K \; \hat{\vec S} \cdot \vec B
+    = -K \; \vechat S \cdot \vec B
     = -K \; \left(
         \frac{1}{2} (\hat S_+ B_- + \hat S_- B_+)
         + \hat S_\mathrm{z} B_\mathrm{z}
@@ -727,14 +730,14 @@ tedy $\Cop\ket\pm=\pm\ket\pm$. Poslední dva body plynou triviálně z tohoto v�
 \end{gather*}
 
 
-\section{Spin ve vodíku, spin-1, pozitronium}
+\section{Hyperjemné štěpení (spin-spinová interakce), spin-1, pozitronium}
 \subsection{Zadání}
 Máme atom vodíku, složený z elektronu se spinem $\nicefrac{1}{2}$ a protonu se spinem $\nicefrac{1}{2}$. Hamiltonián systému je
 \begin{equation*}
     \hat H
-    = A \, \hat{\vec S}^\const{e} \!\cdot\! \hat{\vec S}^\const{p}
-    - K_e \, \hat{\vec S}^\const{e} \!\cdot\! \vec B
-    - K_p \, \hat{\vec S}^\const{p} \!\cdot\! \vec B
+    = A \, \vechat S^\const{e} \!\cdot\! \vechat S^\const{p}
+    - K_e \, \vechat S^\const{e} \!\cdot\! \vec B
+    - K_p \, \vechat S^\const{p} \!\cdot\! \vec B
     \: , \quad
     \vec B = (0, 0, B)
     \: .
@@ -746,7 +749,7 @@ Dále uvažujte, spin-$1$ částici se spinem orientovaným ve směru osy $z$ a 
 Nakonec mějme pozitronium (proton v atomu vodíku nahradíme pozitronem) s hamiltoniánem
 \begin{equation*}
     \hat H
-    = A \, \hat{\vec S}^{\const{e}^-} \!\! \cdot \hat{\vec S}^{\const{e}^+}
+    = A \, \vechat S^{\const{e}^-} \!\! \cdot \vechat S^{\const{e}^+}
     + B \hat S^2
     \: ,
 \end{equation*}
@@ -755,12 +758,12 @@ nalezněte energie stacionárních stavů.
 \subsection{Řešení}
 Budeme pracovat v součinové bázi vlastních stavů operátorů $\hat S_{\!z}^\const{e}$ a $\hat S_{\!z}^\const{p}$:
 \begin{equation*}
-    \ket{\pm\pm} = \ket{\pm z_\const{e}} \otimes \ket{\pm z_\const{p}} \: .
+    \ket{\pm\pm} \coloneqq \ket{\pm z_\const{e}} \otimes \ket{\pm z_\const{p}} \: .
 \end{equation*}
 Provedeme polární rozklad hamiltoniánu a vyjádříme ho v bázi $\ket{\pm\pm}$:
 \begin{equation*}
     \hat H
-    = A \, \hat{\vec S}^{\const{e}^+} \cdot \hat{\vec S}^{\const{e}^-} + B \hat S^2
+    = A \, \vechat S^{\const{e}^+} \cdot \vechat S^{\const{e}^-} + B \hat S^2
     = A \, \frac{1}{2} \! \left( \hat S_{\!+}^\const{e} \hat S_{\!-}^\const{p} + \hat S_{\!-}^\const{e} \hat S_{\!+}^\const{p} \right) + A \,\hat S_{\!z}^\const{e} \, \hat S_{\!z}^\const{p} - K_\const{e} \, B \, \hat S_{\!z}^\const{e} - K_\const{p} \, B \, \hat S_{\!z}^\const{p}
 \end{equation*}
 \begin{align*}
@@ -814,7 +817,7 @@ Vidíme, že je hamiltonián částečně diagonalizovaný, stavy $\ket{++}$ a $
     = -\alpha \pm \sqrt{4\alpha^2 + \beta^2}
     = -\frac{A}{4} \pm \frac{1}{2} \sqrt{A^2 + B^2 \left(K_\const{e} - K_\const{p}\right)^2}
 \end{gather*}
-Máme tedy energie stacionárních stavů:
+Vidíme tedy, že magnetické pole sejmulo degeneraci stacionárních stavů a máme 4 různé energetické hladiny:
 \begin{table}[h!]
     \centering
     \begin{tabular}{ r|l }
@@ -835,7 +838,7 @@ Máme tedy energie stacionárních stavů:
     \end{tabular}
 \end{table}
 
-Pokračujeme spin-1 částicí. Zvolíme si bázi $\ket{+z}, \ket{0z}, \ket{-z}$, v ní vyjádříme $\hat{\vec S}$:
+Pokračujeme spin-1 částicí. Zvolíme si bázi $\ket{+z}, \ket{0z}, \ket{-z}$, v ní vyjádříme $\vechat S$:
 \begin{align*}
     \hat S_x &= \frac{1}{\oldsqrt{2}} \mat{
         0 & 1 & 0 \\
@@ -855,7 +858,7 @@ Pokračujeme spin-1 částicí. Zvolíme si bázi $\ket{+z}, \ket{0z}, \ket{-z}$
         0 & 0 & -1
     },
     &
-    \hat{\vec S} &= \mat{
+    \vechat S &= \mat{
         \hat S_x \\
         \hat S_y \\
         \hat S_z
@@ -871,9 +874,9 @@ Budeme měřit spin v obecném směru $\vec n$, který si parametrizujeme sféri
 \end{equation*}
 Zajímá nás, s jakou pravděpodobností naměříme stav
 \begin{gather*}
-    \left(\hat{\vec S} \cdot \vec n\right) \ket{0\vec n} = 0 \ket{0\vec n}
+    \left(\vechat S \cdot \vec n\right) \ket{0\vec n} = 0 \ket{0\vec n}
     \;\iff\;
-    \ker \hat{\vec S} \cdot \vec n = \{\, \ket{0 \vec n} \,\}
+    \ker \vechat S \cdot \vec n = \{\, \ket{0 \vec n} \,\}
     \\\\
     \hat S \cdot \vec n
     = \mat{
@@ -985,24 +988,24 @@ Projekci do obecného směru tedy máme spočtenou. Vypočítáme ještě výsle
 \end{gather*}
 Nakonec nalezneme energie stacionárních stavů pozitronia. Budeme opět pracovat v součinové bázi
 \begin{equation*}
-    \ket{\pm\pm} = \ket{\pm z_{\const{e}^+}} \otimes \ket{\pm z_{\const{e}^-}} \: ,
+    \ket{\pm\pm} \coloneqq \ket{\pm z_{\const{e}^+}} \otimes \ket{\pm z_{\const{e}^-}} \: ,
 \end{equation*}
-a opět si vyjádříme polární  rozklad hamiltoniánu. Abychom se v neutopili v indexech, přejmenujeme si operátory spinů elektronu a pozitronu na $\hat{\vec X}, \hat{\vec Y}$.
+a opět si vyjádříme polární  rozklad hamiltoniánu. Abychom se v neutopili v indexech, přejmenujeme si operátory spinů elektronu a pozitronu na $\vechat X, \vechat Y$.
 \begin{equation*}
-    \hat{\vec X} \coloneqq \hat{\vec S}^{\const{e}^-},
+    \vechat X \coloneqq \vechat S^{\const{e}^-},
     \quad
-    \hat{\vec Y} \coloneqq \hat{\vec S}^{\const{e}^+}
+    \vechat Y \coloneqq \vechat S^{\const{e}^+}
 \end{equation*}
 \begin{align*}
     \hat H
-    &= A \, \hat{\vec X} \!\cdot \hat{\vec Y}
+    &= A \, \vechat X \!\cdot \vechat Y
     + B \hat S^2
     =
-    A \, \hat{\vec X} \!\cdot \hat{\vec Y}
-    + B \, \big(\hat{\vec X} + \hat{\vec Y}\big) \cdot \big(\hat{\vec X} + \hat{\vec Y}\big)
+    A \, \vechat X \!\cdot \vechat Y
+    + B \, \big(\vechat X + \vechat Y\big) \cdot \big(\vechat X + \vechat Y\big)
     = B (\hat X^2 + \hat Y^2)
-    + (A + 2B) \, \hat{\vec X} \! \cdot \hat{\vec Y}
-    - B \big[ \hat{\vec X} \:{;}\: \hat{\vec Y} \big]
+    + (A + 2B) \, \vechat X \! \cdot \vechat Y
+    - B \big[ \vechat X \:{;}\: \vechat Y \big]
     \\[5pt]
     &= B \big(
         \frac{1}{2} (\hat X_+ \hat X_- + \hat X_- \hat X_+ + \hat Y_+ \hat Y_- + \hat Y_- \hat Y_+)
@@ -1022,14 +1025,14 @@ a opět si vyjádříme polární  rozklad hamiltoniánu. Abychom se v neutopili
     \big)
     \: ,
 \end{align*}
-kde $[ \hat{\vec A} \:{;}\: \hat{\vec B} ]$ je komutátor skalárního součinu
+kde $[ \vechat A \:{;}\: \vechat B ]$ je komutátor skalárního součinu
 \begin{gather*}
-    \big[ \hat{\vec A} \:{;}\: \hat{\vec B} \big]
-    = \hat{\vec A} \cdot \hat{\vec B} - \hat{\vec B} \cdot \hat{\vec A}
+    \big[ \vechat A \:{;}\: \vechat B \big]
+    = \vechat A \cdot \vechat B - \vechat B \cdot \vechat A
     = \comm{\hat A_x}{\hat B_x} + \comm{\hat A_y}{\hat B_y} + \comm{\hat A_z}{\hat B_z}
     \: ,
 \end{gather*}
-a pro $\hat{\vec X}, \hat{\vec Y}$ je nulový, protože operují na jiných částech součinového prostoru.
+a pro $\vechat X, \vechat Y$ je nulový, protože operují na jiných částech součinového prostoru.
 
 Pokračujeme výpočtem působení $\hat H$ na bázové stavy.
 \begin{align*}
@@ -1157,5 +1160,389 @@ Vidíme tedy, že $\ket{++}, \ket{--}$ jsou vlastní stavy degenerované energet
     \lambda \in \big\{ -\frac{3A}{4}, \; \frac{A}{4} + 2B \big\}
 \end{gather*}
 Vidíme tedy, že pozitronium má jednu nedegenerovanou energetickou hladinu $E_0 = -\nicefrac{3}{4} \, A$ a jednu trojnásobně degenerovanou hladinu $E_1 = \nicefrac{A}{4} + 2B$. Tyto dvě hladiny odpovídají stavům s celkovým spinem $S=0$, resp. $S=1$.
+
+\section{Jemné štěpení (spin-orbitální interakce)}
+
+\subsection{Zadání}
+Máme atom vodíku v p-stavu, jeho hamiltonián je
+\begin{equation*}
+    \hat H = A \, \vechat S \cdot \vechat L \: .
+\end{equation*}
+Spočtěte energie stacionárních stavů. Ukažte, že operátor $\vechat J = \vechat S + \vechat L$ komutuje s hamiltoniánem a vypočítejte působení $\hat J^2$ a $\hat J_z$ na stacionární stavy.
+
+Tento atom následně vložíme do magnetického pole. Výsledný hamiltonián je
+\begin{equation*}
+    \hat H
+    = A \, \vechat S \cdot \vechat L
+    - K \big( \vechat S + \frac{1}{2} \vechat L \big) \cdot \vec B
+    \: , \quad
+    \vec B = (0, 0, B)
+    \: ,
+\end{equation*}
+jaké jsou energie stacionárních stavů?
+
+\subsection{Řešení}
+V p-stavu může $L_z$ nabývat hodnot $-1$, $0$, $+1$, chová se tedy v podstatě jako spin-1. Budeme pracovat se součinovou bází vlastních stavů operátorů $\hat S_z, \hat L_z$:
+\begin{align*}
+    \ket{\pm\pm} &\coloneqq
+    \ket{\pm_S} \otimes \ket{1, \pm 1_L}
+    \\
+    \ket{\pm\0} &\coloneqq
+    \ket{\pm_S} \otimes \ket{1, \ph{\pm} 0_L}
+\end{align*}
+
+Opět si vyjádříme hamiltonián v polární formě a vypočteme jeho působení na $\ket{\pm \mask{+}{\ell}}$:
+\begin{equation*}
+    \hat H
+    = \frac{A}{2} \left(
+        \hat S_+ \hat L_- +
+        \hat S_- \hat L_+
+    \right)
+    + A \, \hat S_z \hat L_z
+\end{equation*}
+\begin{align*}
+    \hat H \ket{++}
+    &= \left(
+        \frac{A}{2} \left(
+            \hat S_+ \hat L_- +
+            \hat S_- \hat L_+
+        \right)
+        + A \, \hat S_z \hat L_z
+    \right) \ket{++}
+    = \left(
+        \frac{A}{2} \left(
+            0 \, \oldsqrt{2} +
+            0
+        \right)
+        + A \left( +\nicefrac{1}{2} \right) (+1)
+    \right) \ket{++}
+    = \frac{A}{2} \ket{++}
+    \\\\
+    \hat H \ket{--}
+    &= \left(
+        \frac{A}{2} \left(
+            \hat S_+ \hat L_- +
+            \hat S_- \hat L_+
+        \right)
+        + A \, \hat S_z \hat L_z
+    \right) \ket{--}
+    = \left(
+        \frac{A}{2} \left(
+            0 +
+            0 \, \oldsqrt{2}
+        \right)
+        + A \left( -\nicefrac{1}{2} \right) (-1)
+    \right) \ket{--}
+    = \frac{A}{2} \ket{--}
+    \\\\
+    \hat H \ket{+\0}
+    &= \left(
+        \frac{A}{2} \left(
+            \hat S_+ \hat L_- +
+            \hat S_- \hat L_+
+        \right)
+        + A \, \hat S_z \hat L_z
+    \right) \ket{+\0}
+    =
+    \frac{A}{2} \left(
+        0 +
+        \oldsqrt{2} \ket{-+}
+    \right)
+    + A \left( \nicefrac{1}{2} \right) 0
+    = \oldsqrt{2} \frac{A}{2} \ket{-+}
+    = \frac{A}{\oldsqrt{2}} \ket{-+}
+    \\\\
+    \hat H \ket{-\0}
+    &= \left(
+        \frac{A}{2} \left(
+            \hat S_+ \hat L_- +
+            \hat S_- \hat L_+
+        \right)
+        + A \, \hat S_z \hat L_z
+    \right) \ket{-\0}
+    =
+    \frac{A}{2} \left(
+        \oldsqrt{2} \ket{+-}
+        + 0
+    \right)
+    + A \left( \nicefrac{1}{2} \right) 0
+    = \oldsqrt{2} \frac{A}{2} \ket{+-}
+    = \frac{A}{\oldsqrt{2}} \ket{+-}
+    \\\\
+    \hat H \ket{+-}
+    &= \left(
+        \frac{A}{2} \left(
+            \hat S_+ \hat L_- +
+            \hat S_- \hat L_+
+        \right)
+        + A \, \hat S_z \hat L_z
+    \right) \ket{+-}
+    =
+    \frac{A}{2} \left(
+        0 +
+        \oldsqrt{2} \ket{-\0}
+    \right)
+    + A \left( +\nicefrac{1}{2} \right) (-1) \ket{+-}
+    = \frac{A}{\oldsqrt 2} \ket{-\0} - \frac{A}{2} \ket{+-}
+    \\\\
+    \hat H \ket{-+}
+    &= \left(
+        \frac{A}{2} \left(
+            \hat S_+ \hat L_- +
+            \hat S_- \hat L_+
+        \right)
+        + A \, \hat S_z \hat L_z
+    \right) \ket{-+}
+    =
+    \frac{A}{2} \left(
+        \oldsqrt{2} \ket{+\0}
+        + 0
+    \right)
+    + A \left( -\nicefrac{1}{2} \right) (+1) \ket{+-}
+    = \frac{A}{\oldsqrt 2} \ket{+\0} - \frac{A}{2} \ket{-+}
+\end{align*}
+Vidíme, že hamiltonián je blokově diagonální. Stavy $\ket{++}$ a $\ket{--}$ jsou stacionární stavy s energií $\nicefrac{A}{2}$. Podprostory $\Span\{ \ket{+\0}, \ket{-+} \}$ a $\Span\{ \ket{-\0}, \ket{+-} \}$ můžeme diagonalizovat samostatně.
+\begin{gather*}
+    M_+ \coloneqq \mat{
+        \bra{+\0} \dfrac{2}{A} \hat H \ket{+\0} &
+        \bra{+\0} \dfrac{2}{A} \hat H \ket{-+} \\[15pt]
+        \bra{-+} \dfrac{2}{A} \hat H \ket{+\0} &
+        \bra{-+} \dfrac{2}{A} \hat H \ket{-+}
+    }
+    = \mat{
+        0 & \oldsqrt{2} \\[5pt]
+        \oldsqrt{2} & -1
+    }
+\end{gather*}
+Vlastní čísla matice $M$ jsou $-2$ a $1$, jim odpovídají vlastní vektory $(1 ,\, -\oldsqrt 2)$ a $(\oldsqrt 2 ,\, 1)$. Nové stacionární stavy si nazveme nenápaditě $\ket{A}, \ket{B}$.
+\begin{gather*}
+    \ket A \coloneqq \frac{1}{\oldsqrt 3} \big(
+        \ket{+\0} - \oldsqrt 2 \ket{-+}
+    \big)
+    \: , \quad
+    \ket B \coloneqq \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2 \ket{+\0} + \ket{-+}
+    \big)
+    \: ,
+    \\\\
+    \hat H \ket A
+    = \frac{A}{2} (-2) \ket A
+    = -A \ket A
+    \: , \quad
+    \hat H \ket B
+    = \frac{A}{2} \ket B
+    \: .
+\end{gather*}
+Obdobně pracujeme i se stavy $\ket{-\0}, \ket{+-}$.
+\begin{gather*}
+    M_- \coloneqq \mat{
+        \bra{-\0} \dfrac{2}{A} \hat H \ket{-\0} &
+        \bra{-\0} \dfrac{2}{A} \hat H \ket{+-} \\[15pt]
+        \bra{+-} \dfrac{2}{A} \hat H \ket{-\0} &
+        \bra{+-} \dfrac{2}{A} \hat H \ket{+-}
+    }
+    = \mat{
+        0 & \oldsqrt{2} \\[5pt]
+        \oldsqrt{2} & -1
+    }
+    \\\\
+    \ket C \coloneqq \frac{1}{\oldsqrt 3} \big(
+        \ket{-\0} - \oldsqrt 2 \ket{+-}
+    \big)
+    \: , \quad
+    \ket D \coloneqq \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2 \ket{-\0} + \ket{+-}
+    \big)
+    \: ,
+    \\\\
+    \hat H \ket C
+    = \frac{A}{2} (-2) \ket C
+    = -A \ket C
+    \: , \quad
+    \hat H \ket D
+    = \frac{A}{2} \ket D
+    \: .
+\end{gather*}
+Vidíme, že hamiltonián má jednu čtyřikrát degenerovanou energetickou hladinu $\nicefrac{A}{2}$ a jednu dvakrát degenerovanou hladinu $-A$. Stacionární stavy tvoří bázi hilbertova prostoru, aby se nám s nimi lépe dále pracovalo, přejmenujeme~si~je:
+\begin{align*}
+    \ket{ \nicefrac{3}{2}, +\nicefrac{3}{2} }
+    &\coloneqq \ket{++}
+    \: , \\[10pt]
+    \ket{ \nicefrac{3}{2}, +\nicefrac{1}{2} }
+    &\coloneqq \ket{B}
+    = \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2 \ket{+\0} + \ket{-+}
+    \big)
+    \: , \\[10pt]
+    \ket{ \nicefrac{3}{2}, -\nicefrac{1}{2} }
+    &\coloneqq \ket{D}
+    = \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2 \ket{-\0} + \ket{+-}
+    \big)
+    \: , \\[10pt]
+    \ket{ \nicefrac{3}{2}, -\nicefrac{3}{2} }
+    &\coloneqq \ket{--}
+    \: , \\[10pt]
+    \ket{ \nicefrac{1}{2}, +\nicefrac{1}{2} }
+    &\coloneqq \ket{A}
+    = \frac{1}{\oldsqrt 3} \big(
+        \ket{+\0} - \oldsqrt 2 \ket{-+}
+    \big)
+    \: , \\[10pt]
+    \ket{ \nicefrac{1}{2}, -\nicefrac{1}{2} }
+    &\coloneqq \ket{C}
+    = \frac{1}{\oldsqrt 3} \big(
+        \ket{-\0} - \oldsqrt 2 \ket{+-}
+    \big)
+    \: .
+\end{align*}
+Dále budeme pracovat s operátorem $\vechat J = \vechat S + \vechat L$. Nejprve ukážeme, že komutuje s hamiltoniánem.
+\begin{gather*}
+    \comm{\hat S_j}{\; \hat H}
+    = A \, \comm{\hat S_j}{\; \vechat S \cdot \vechat L}
+    = A \sum_k \comm{\hat S_j}{\; \hat S_k \hat L_k}
+    = A \sum_k \comm{\hat S_j}{\; \hat S_k} \hat L_k
+    + A \sum_k \hat S_k \comm{\hat S_j}{\; \hat L_k}
+    = A \sum_k \i \, \varepsilon_{jk\ell} \, \hat S_\ell \hat L_k
+    \\[10pt]
+    \comm{\hat L_j}{\; \hat H}
+    = A \, \comm{\hat L_j}{\; \vechat S \cdot \vechat L}
+    = A \sum_k \comm{\hat L_j}{\; \hat S_k \hat L_k}
+    = A \sum_k \comm{\hat L_j}{\; \hat S_k} \hat L_k
+    + A \sum_k \hat S_k \comm{\hat L_j}{\; \hat L_k}
+    = A \sum_k \i \, \varepsilon_{jk\ell} \, \hat S_k \hat L_\ell
+    \\[10pt]
+    \comm{\hat J_j}{\; \hat H}
+    = \comm{\hat S_j}{\; \hat H}
+    + \comm{\hat L_j}{\; \hat H}
+    = A \, \sum_k \, \i \, \varepsilon_{jk\ell} \, \hat S_\ell \hat L_k
+    \; + \;
+    A \, \sum_k \, \i \, \varepsilon_{jk\ell} \, \hat S_k \hat L_\ell
+    = A \, \sum_k \, \i \, \big(
+        \underbrace{
+            \varepsilon_{jk\ell} +
+            \varepsilon_{j\ell k}
+        }_0
+    \big) \, \hat S_\ell \hat L_k
+    = 0
+    \\[10pt]
+    \comm{\vechat J}{\; \hat H} = \big(
+        \comm{\hat J_x}{\hat H}, \;
+        \comm{\hat J_y}{\hat H}, \;
+        \comm{\hat J_z}{\hat H}
+    \big)
+    = \big( 0 ,\; 0 ,\; 0\big)
+\end{gather*}
+Pokračujeme výpočtem působení $\hat J_z$ na $\ket{j,m}$.
+\begin{gather*}
+    \hat J_z \ket{ \nicefrac{3}{2}, +\nicefrac{3}{2} }
+    = \big( \hat S_z + J_z \big) \ket{++}
+    = \big( +\frac{1}{2} + 1 \big) \ket{++}
+    = +\frac{3}{2} \ket{ \nicefrac{3}{2}, +\nicefrac{3}{2} }
+    \\\\
+    \hat J_z \ket{ \nicefrac{3}{2}, -\nicefrac{3}{2} }
+    = \big( \hat S_z + J_z \big) \ket{--}
+    = \big( -\frac{1}{2}  + 1 \big) \ket{--}
+    = -\frac{3}{2} \ket{ \nicefrac{3}{2}, -\nicefrac{3}{2} }
+    \\\\
+    \hat J_z \ket{ \nicefrac{3}{2}, +\nicefrac{1}{2} }
+    = \big( \hat S_z + J_z \big)
+    \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2 \ket{+\0} + \ket{-+}
+    \big)
+    = \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2
+        (+\frac{1}{2} + 0)
+        \ket{+\0}
+        +
+        (-\frac{1}{2} + 1)
+        \ket{-+}
+    \big)
+    =
+    +\frac{1}{2}
+    \ket{ \nicefrac{3}{2}, +\nicefrac{1}{2} }
+    \\\\
+    \hat J_z \ket{ \nicefrac{3}{2}, -\nicefrac{1}{2} }
+    = \big( \hat S_z + J_z \big)
+    \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2 \ket{-\0} + \ket{+-}
+    \big)
+    = \frac{1}{\oldsqrt 3} \big(
+        \oldsqrt 2
+        (-\frac{1}{2} + 0)
+        \ket{-\0}
+        +
+        (+\frac{1}{2} - 1)
+        \ket{+-}
+    \big)
+    =
+    -\frac{1}{2}
+    \ket{ \nicefrac{3}{2}, -\nicefrac{1}{2} }
+    \\\\
+    \hat J_z \ket{ \nicefrac{1}{2}, +\nicefrac{1}{2} }
+    = \big( \hat S_z + J_z \big)
+    \frac{1}{\oldsqrt 3} \big(
+        \ket{+\0} - \oldsqrt 2 \ket{-+}
+    \big)
+    = \frac{1}{\oldsqrt 3} \big(
+        (+\frac{1}{2} + 0)
+        \ket{+\0}
+        -
+        \oldsqrt 2
+        (-\frac{1}{2} + 1)
+        \ket{-+}
+    \big)
+    =
+    +\frac{1}{2}
+    \ket{ \nicefrac{1}{2}, +\nicefrac{1}{2} }
+    \\\\
+    \hat J_z \ket{ \nicefrac{1}{2}, -\nicefrac{1}{2} }
+    = \big( \hat S_z + J_z \big)
+    \frac{1}{\oldsqrt 3} \big(
+        \ket{-\0} - \oldsqrt 2 \ket{+-}
+    \big)
+    = \frac{1}{\oldsqrt 3} \big(
+        (-\frac{1}{2} + 0)
+        \ket{-\0}
+        -
+        \oldsqrt 2
+        (+\frac{1}{2} - 1)
+        \ket{+-}
+    \big)
+    =
+    -\frac{1}{2}
+    \ket{ \nicefrac{1}{2}, -\nicefrac{1}{2} }
+\end{gather*}
+Dále vypočítáme působení $\hat J^2$ na $\ket{j,m}$.
+\begin{gather*}
+    \hat J^2
+    = \left( \vechat S + \vechat L \right)^2
+    = \hat S^2 + \hat L^2 + 2 \, \vechat S \cdot \vechat L - \big[ \vechat S \,{;}\, \vechat L \big]
+    = \hat S^2 + \hat L^2 + \frac{2}{A} \hat H
+    \\\\
+    \hat J^2
+    = \frac{1}{2} \big(
+        \hat S_+ \hat S_- +
+        \hat S_- \hat S_+ +
+        \hat L_+ \hat L_- +
+        \hat L_- \hat L_+
+    \big)
+    + {\hat S_z}^2 + {\hat L_z}^2
+    + \frac{2}{A} \hat H
+\end{gather*}
+Vynásobíme-li výraz stavem $\ket{j,m}$, stejným způsobem jako nahoře, vyjde nám:
+\begin{equation*}
+    \hat J^2 \ket{\nicefrac{3}{2}, m}
+    = \nicefrac{3}{2} \; (\nicefrac{3}{2} + 1) \,
+    \ket{\nicefrac{3}{2}, m}
+    \: , \hspace{3em}
+    \hat J^2 \ket{\nicefrac{1}{2}, m}
+    = \nicefrac{1}{2} \; (\nicefrac{1}{2} + 1) \,
+    \ket{\nicefrac{1}{2}, m}
+    \: , \hspace{3em}
+    \forall m = -\tfrac{3}{2}, \; {...}, \; \tfrac{3}{2}
+    \: .
+\end{equation*}
+
 
 \end{document}
