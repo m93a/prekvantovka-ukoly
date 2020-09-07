@@ -73,6 +73,7 @@
 \newcommand{\comm}[2]{\left[ #1, #2 \right]}
 \newcommand{\const}[1]{\text{#1}}
 \newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\expect}[1]{\left< #1 \right>}
 
 \newcommand{\mat}[1]{
     \begin{pmatrix}
@@ -120,6 +121,9 @@
 \def\bone{\bra{\mask{+}{1}}}
 \def\btwo{\bra{\mask{+}{2}}}
 
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
 \def\R{\mathbb{R}}
 \def\C{\mathbb{C}}
 \def\1{\mathbbm{1}}
@@ -1656,6 +1660,529 @@ Dostáváme tedy šest nedegenerovaných energetických hladin:
         $E_6$ \Huge \strut & $\dfrac{A}{2} + KB$
     \end{tabular}
 \end{table}
+
+\section{Střední hodnota spinu}
+\subsection{Zadání}
+Jaká je střední hodnota jednotlivých složek operátoru spinu?
+\begin{equation*}
+    \expect{ \hat S_j } = {?}
+    \: , \quad
+    j = x, y, z
+\end{equation*}
+vypočtěte pro spin-$\nicefrac{1}{2}$ částici s $\ket\psi=\ket{+\vec n}$ a pro spin-$1$ částici s $\ket\psi=\ket{\0\vec n}$.
+
+Vypočtěte časový vývoj střední hodnoty spinu pro částici s obecným spinem v magnetickém poli.
+\begin{equation*}
+    \hat H = - K \, \vechat S \cdot \vec B
+    , \: \quad
+    \vec B = (0, 0, B)
+    , \: \quad
+    \dd{}{t} \! \expect{ \hat S_j } = {?}
+\end{equation*}
+
+\subsection{Řešení}
+Použijeme vyjádření $\ket{+\vec n}$ a $\ket{0\vec n}$ z úloh 1 a 4.
+\begin{gather*}
+    \ket{+ \vec n} =
+    \mat{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    , \: \quad
+    \ket{0\vec n}
+    =
+    \frac{1}{\oldsqrt 2}
+    \mat{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }
+    \: ,
+    \\
+    \vechat S_{\nicefrac{1}{2}} = \left( \;
+        \tfrac{1}{2} \smat[0.9]{0&1\\1&0}, \;
+        \tfrac{1}{2} \smat[0.9]{0&\!-\i\\\i&\ph{\!-}0}, \;
+        \tfrac{1}{2} \smat[0.9]{1&\ph{\!-}0\\0&\!-1} \;
+    \right)
+    \: ,
+    \\[5pt]
+    \vechat S_1 = \left( \;
+        \tfrac{1}{2} \smat[0.8]{&1&\\1&&1\\&1}, \;
+        \tfrac{1}{2} \smat[0.8]{&\!\!-\i&\\\i&&\i\\&\!\!-\i}, \;
+        \tfrac{1}{2} \smat[0.8]{1&&\\&0&\\&&\lzw{-}1} \;
+    \right)
+    \: .
+\end{gather*}
+Nejprve se pustíme do řešení spin-$\nicefrac{1}{2}$ částice.
+\begin{align*}
+    \expect{ \hat S_x }
+    &= \bra{+\vec n} \hat S_x \ket{+\vec n}
+    = \smat[0.9]{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }^+
+    \; \tfrac{1}{2} \smat[0.9]{0&1\\1&0} \;
+    \smat[0.9]{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    = \frac{1}{2}
+    \smat[0.9]{
+        \e{-\i \varphi/2} \sin \tfrac{\vartheta}{2} &
+        \e{+\i \varphi/2} \cos \tfrac{\vartheta}{2}
+    }
+    \smat[0.9]{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    \\
+    &= \frac{1}{2} \e{-\i \varphi} \sin \tfrac{\vartheta}{2} \cos \tfrac{\vartheta}{2}
+    + \frac{1}{2} \e{+\i \varphi} \cos \tfrac{\vartheta}{2} \sin \tfrac{\vartheta}{2}
+    =
+    \frac{1}{2}
+    \underbrace{
+        \left( \e{-\i \varphi} + \e{+\i \varphi} \right)
+    }_{2 \cos \varphi}
+    \underbrace{
+        \left( \sin \tfrac{\vartheta}{2} \cos \tfrac{\vartheta}{2} \right)
+    }_{\tfrac{1}{2} \sin \vartheta}
+    =
+    \frac{1}{2}
+    \sin \vartheta \,
+    \cos \varphi
+    \: .
+    \\
+    \\
+    \expect{\hat S_y}
+    &= \bra{+\vec n} \hat S_y \ket{+\vec n}
+    = \smat[0.9]{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }^+
+    \; \tfrac{1}{2} \smat[0.9]{0&\!-\i\\\i&\ph{\!-}0} \;
+    \smat[0.9]{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    = \frac{1}{2}
+    \smat[0.9]{
+        \e{+\i \varphi/2} \cos \tfrac{\vartheta}{2} &
+        \e{-\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    \smat[0.9]{
+        -\i \, \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}\\[7pt]
+        +\i \, \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}
+    }
+    \\
+    &=
+    -\i \, \frac{1}{2} \, \e{\i\varphi} \, \cos \tfrac{\vartheta}{2} \sin \tfrac{\vartheta}{2}
+    +\i \, \frac{1}{2} \, \e{-\i\varphi} \, \sin \tfrac{\vartheta}{2} \cos \tfrac{\vartheta}{2}
+    =
+    \frac{1}{2}
+    \underbrace{
+        \left( \i \, \e{-\i \varphi} - \i \, \e{+\i \varphi} \right)
+    }_{2 \sin \varphi}
+    \underbrace{
+        \left( \sin \tfrac{\vartheta}{2} \cos \tfrac{\vartheta}{2} \right)
+    }_{\tfrac{1}{2} \sin \vartheta}
+    =
+    \frac{1}{2}
+    \sin \vartheta \,
+    \sin \varphi
+    \: .
+    \\
+    \\
+    \expect{ \hat S_z }
+    &= \bra{+\vec n} \hat S_z \ket{+\vec n}
+    = \smat[0.9]{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }^+
+    \; \tfrac{1}{2} \smat[0.9]{1&\ph{\!-}0\\0&\!-1} \;
+    \smat[0.9]{
+        \e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}\\[7pt]
+        \e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    = \frac{1}{2}
+    \smat[0.9]{
+        \e{+\i \varphi/2} \cos \tfrac{\vartheta}{2} &
+        \e{-\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    \smat[0.9]{
+        +\e{-\i \varphi/2} \cos \tfrac{\vartheta}{2}
+        \\[7pt]
+        -\e{+\i \varphi/2} \sin \tfrac{\vartheta}{2}
+    }
+    \\
+    &= \frac{1}{2} \left(
+        \cos^2 \tfrac{\vartheta}{2}
+        - \sin^2 \tfrac{\vartheta}{2}
+    \right)
+    = \frac{1}{2} \cos \vartheta
+    \: .
+\end{align*}
+Pokračujeme výpočtem středních hodnot pro spin-$1$.
+\begin{align*}
+    \expect{\hat S_x}
+    &= \bra{0\vec n} \hat S_x \ket{0\vec n}
+    =
+    \smat[0.8]{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }^+
+    \tfrac{1}{2} \smat[0.8]{&1&\\1&&1\\&1} \;
+    \smat[0.8]{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }
+    =
+    \frac{1}{2}
+    \smat[0.8]{
+        -\e{+\i \varphi} \sin \vartheta &
+        \oldsqrt{2} \cos \vartheta &
+        \e{-\i \varphi} \sin \vartheta
+    }
+    \smat[0.8]{
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        (-\e{-\i\varphi} + \e{+\i\varphi}) \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta
+    }
+    \\
+    &=
+    \frac{1}{2}
+    \left(-\e{+\i\varphi} + \e{-\i\varphi}\right)
+    \sin \vartheta \,
+    \oldsqrt{2} \cos \vartheta
+    +
+    \frac{1}{2}
+    \oldsqrt{2} \cos \vartheta \,
+    \left(-\e{-\i\varphi} + \e{+\i\varphi}\right)
+    \sin \vartheta
+    \\
+    &=
+    \frac{1}{\oldsqrt 2} \;
+    \sin \vartheta \;
+    \cos \vartheta \;
+    \left(
+        (-\e{-\i\varphi} + \e{+\i\varphi}) -
+        (-\e{-\i\varphi} + \e{+\i\varphi})
+    \right)
+    = 0
+    \\\\
+    \expect{\hat S_y}
+    &= \bra{0\vec n} \hat S_y \ket{0\vec n}
+    =
+    \smat[0.8]{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }^+
+    \tfrac{1}{2} \smat[0.8]{&\!\!-\i&\\\i&&\i\\&\!\!-\i} \;
+    \smat[0.8]{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }
+    = \; \text{(obdobně)} \; = 0
+    \\\\
+    \expect{\hat S_z}
+    &= \bra{0\vec n} \hat S_z \ket{0\vec n}
+    =
+    \smat[0.8]{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }^+
+    \tfrac{1}{2} \smat[0.8]{1&&\\&0&\\&&\lzw{-}1} \;
+    \smat[0.8]{
+        -\e{-\i \varphi} \sin \vartheta \\[7pt]
+        \oldsqrt{2} \cos \vartheta \\[7pt]
+        \e{+\i \varphi} \sin \vartheta
+    }
+    =
+    \frac{1}{2} \left(
+        \e{+\i\varphi}
+        \e{-\i\varphi}
+        \sin^2 \vartheta
+        -
+        \e{-\i\varphi}
+        \e{+\i\varphi}
+        \sin^2 \vartheta
+    \right)
+    = 0
+\end{align*}
+Nakonec nás zajímá časový vývoj střední hodnoty $\hat S_j$. Pro obecný samoadjugovaný operátor $\hat A$ platí
+\begin{equation*}
+    \dd{}{t} \! \expect{\hat A}
+    = \i \expect{ \comm{\hat H}{\hat A} }
+\end{equation*}
+Tedy (v následujícím sčítáme přes zdvojený index $k$):
+\begin{gather*}
+    \dd{}{t} \! \expect{ \hat S_j }
+    = \i \expect{ \comm{\hat H}{\hat S_j} }
+    = \i \expect{ \comm{KB \, \hat S_z}{\; \hat S_j} }
+    = \i KB \expect{ \comm{\hat S_z}{\hat S_j} }
+    = \i KB \expect{ \i \, \varepsilon_{zjk} \hat S_k }
+    = -KB \, \varepsilon_{zjk} \expect{\hat S_k}
+\end{gather*}
+\begin{align*}
+    \dd{}{t} \! \expect{ \hat S_x }
+    &= -KB \, \varepsilon_{zxk}\, \expect{\hat S_k}
+    = -KB \, \expect{\hat S_y}
+    \\
+    \dd{}{t} \! \expect{ \hat S_y }
+    &= -KB \, \varepsilon_{zyk}\, \expect{\hat S_k}
+    = \ph{-} KB \, \expect{\hat S_x}
+    \\
+    \dd{}{t} \! \expect{ \hat S_z }
+    &= -KB \, \varepsilon_{zzk}\, \expect{\hat S_k}
+    = 0
+\end{align*}
+\begin{gather*}
+    f(t) \coloneqq \expect{ \hat S_x }
+    \: , \quad
+    g(t) \coloneqq \expect{ \hat S_y }
+    \: , \quad
+    \omega \coloneqq KB
+    \\
+    \bigdot f = -\omega g
+    \: , \quad
+    \bigdot g = \omega f
+    \quad \implies \quad
+    \bigddot f - \omega^2 f = 0
+    \\[4pt]
+    f(t) = A \cos (\omega t + \varphi)
+    \:, \;
+    g(t) = A \sin (\omega t + \varphi)
+\end{gather*}
+\begin{gather*}
+    \expect{ \hat S_x }
+    = A \cos (KB \, t + \varphi)
+    \\
+    \expect{ \hat S_y }
+    = A \sin (KB \, t + \varphi)
+\end{gather*}
+Konstanta $A$ závisí na bližších informacích o systému, fáze $\varphi$ na volbě $t=0$.
+
+\section{Casimirův jev}
+
+\subsection{Zadání}
+Doplňte odvození Casimirova jevu ve 3D, tedy vypočtěte tlak $p$ působící mezi dvěma nekonečnými dokonale vodivými deskami ve vzdálenosti $d$.
+
+\subsection{Řešení}
+Máme elektromagnetické pole dané vektorovým potenciálem $\vec A$, pro který platí
+\begin{equation*}
+    \left(\dd{^2}{t^2} - \nabla^2\right)
+    \vec A(t, \vec r) = 0
+    \: , \quad
+    \vec\nabla \cdot \vec A(t, \vec r) = 0
+    \: .
+\end{equation*}
+Abychom uměli úlohu řešit pomocí standardních nástrojů, požadujeme potenciál navíc periodické podmínky, s periodou $L$. Obecné řešení takového potenciálu lze hledat ve tvaru
+\begin{equation*}
+    \vec A(t, \vec r)
+    =
+    \sum_{\vec k}
+    \sum_{\vph{\vec k} \lambda = 1, 2}
+    q_{\vec k, \lambda}(t) \;
+    \vec T_{\vec k, \lambda}(\vec r)
+    \: ,
+\end{equation*}
+kde
+\begin{equation*}
+    \vec T_{\vec k, \lambda}(\vec r)
+    = \begin{cases}
+        \sqrt{\frac{2}{L^3}\!}
+        (\cos \vec k \cdot \vec r) \;
+        \vec\epsilon_\lambda
+        \\[5pt]
+        \sqrt{\frac{2}{L^3}\!}
+        (\sin \vec k \cdot \vec r) \;
+        \vec\epsilon_\lambda
+    \end{cases}
+    \: ,
+\end{equation*}
+přičemž platí, že $\vec k \perp \vec\epsilon_1 \perp \vec\epsilon_2 \perp \vec k$.
+Konkrétně požadujeme takové podmínky, že
+\begin{equation*}
+    \vec k = \left(
+        \frac{\pi}{d} n_x, \;
+        \frac{2\pi}{L} n_y, \;
+        \frac{2\pi}{L} n_z
+    \right)
+    \: , \quad
+    \vec n \in \Z^3
+\end{equation*}
+Je potřeba se ještě krátce zamyslet nad tím, zda je přiřazení $\vec n \mapsto \vec T$ jednoznačné. Zdálo by se, že některá řešení počítáme dvakrát, protože $\cos  \vec k \cdot \vec r$ jsou sudé funkce a $\sin \vec k \cdot \vec r$ jsou liché funkce, oproti tomu ale jedním číslem potřebujeme klasifikovat jak řešení s $\cos$, tak řešení se $\sin$ – nabízí se jednoduché řešení: kladným $n$ přiřadíme řešení s $\cos$, záporným $\sin$.
+
+Hamiltonián takového pole je
+\begin{equation*}
+    \hat H
+    =
+    \sum_{\vec n \; \in \; \Z^3} \;
+    \sum_{\lambda = 1, 2}
+    \omega_{\vec k}
+    \left(
+        \hat a_{\vec k, \lambda}^+
+        \hat a_{\vec k, \lambda}
+        + \frac{1}{2}
+    \right)
+    \: , \quad
+    \omega_{\vec k} = \norm{\vec k}
+    \: .
+\end{equation*}
+Nás zajímají energie nulových kmitů, pro ty platí
+\begin{equation*}
+    E_0 =
+    \sum_{\vec n \; \in \; \Z^3} \;
+    \sum_{\vph{\vec k} \lambda = 1, 2}
+    \frac{\omega_{\vec k}}{2}
+    =
+    \sum_{\vec n \; \in \; \Z^3} \omega_{\vec k}
+\end{equation*}
+Taková řada zjevně diverguje, předpoklad dokonale vodivých desek je ale pravděpodobně příliš odvážný. Zavedeme tedy regularizační funkci, která bude pro vysoká $\omega_{\vec k}$ dostatečně rychle klesat.
+\begin{gather*}
+    g \in \mathcal{C}^2(\R)
+    \: , \quad
+    g(0) = 1
+    \: , \quad
+    g \text{ je sudá, nezáporná a na $\R^+$ nerostoucí}
+    \: , \quad
+    \lim_{n \to \infty} n^3 g(n) = 0
+    \: .
+\end{gather*}
+Tedy $g(n)$ klesá rychleji než $n^{-3}$. Protože $\omega_{\vec k} \approx n$, dostáváme sumu $\sum n^{-2}$, která už konverguje. Dále zavedeme regularizační parametr $\varepsilon$ v dobré víře, že odvozený výsledek bude platit i pro téměř dokonalé vodiče a budeme moci regularizaci opět odstranit. Celková energie má potom tvar
+\begin{gather*}
+    E_0 =
+    \sum_{\vec n \in \Z^3}
+    \omega_{\vec k} \;\;
+    g(\varepsilon \, \omega_{\vec k})
+\end{gather*}
+
+Protože restrikce na periodu $L$ je umělá a ve skutečnosti nás zajímá, co se stane, když $L \to \infty$, bude pro nás výhodné přejít od sčítání přes $n_y, n_z$ ke sčítání přes $k_y, k_z$. Zadefinujeme si proto pomocnou množinu
+\begin{gather*}
+    M_L \coloneqq \left\{
+        (k_y, k_z)
+        \; \middle| \;
+        k_y = \frac{2\pi}{L} n_y
+        \: , \;
+        k_z = \frac{2\pi}{L} n_z
+        \: , \;
+        (n_y, n_z) \in \Z^2
+    \right\}
+\end{gather*}
+Všimněme si, že pro rostoucí $L$ je $M_L$ čím dál hustějším pokrytím $\R$. Přesněji můžeme pozorovat, že pro funkci $f$, která v nekonečnu klesá dostatečně rychle, platí
+\begin{equation*}
+    \int_{M_L} L^{-2} f(x, y) \d{\alpha}(x, y)
+    \xrightarrow{\;L \to \infty\;}
+    \int_{\R^2} f(x, y) \d{\lambda}(x, y)
+    \: ,
+\end{equation*}
+kde $\alpha(M)$ je aritmetická míra a $\lambda(M)$ je Lebesgueova míra.
+
+Ještě než se pustíme do samotného výpočtu, je třeba si uvědomit, že energie mezi nekonečnými deskami bude zjevně nekonečná – je potřeba přejít k energii na jednotkovou plochu, tedy k intenzitě. Nyní už můžeme provést limitní přechod $L \to \infty$.
+\begin{align*}
+    I = \frac{E_0}{L^2} &=
+    \sum_{\vec n \in \Z^3}
+    L^{-2} \;
+    \omega_{\vec k} \;\;
+    g(\varepsilon \, \omega_{\vec k})
+    =
+    \sum_{\vec n \in \Z^3}
+    L^{-2} \;
+    \underbrace{
+        \sqrt{
+            \left( \tfrac{\pi}{d} n_x \right)^2 +
+            {k_y}^2 + {k_z}^2
+        } \;
+        g(\varepsilon \, \sqrt{\left( \tfrac{\pi}{d} n_x \right)^2 + {k_y}^2 + {k_z}^2})
+    }_{
+        F(n_x, k_y, k_z)
+    }
+    =
+    \sum_{\vec n \in \Z^3} L^{-2} F(n_x, k_y, k_z)
+    \\\\
+    &=
+    \sum_{n_x \in \Z} \;
+    \sum_{(k_y, k_z) \in M_L}
+    \hspace{-1em}
+    L^{-2}
+    F(n_x, k_y, k_z)
+    =
+    \sum_{n_x \in \Z}
+    \int_{M_L} \!\!
+    L^{-2} F(n_x, k_y, k_z)
+    \d{\alpha}(k_y, k_z)
+    %
+    \longrightarrow
+    %
+    \sum_{n_x \in \Z}
+    \int_{\R^2}
+    F(n_x, k_y, k_z)
+    \d{\lambda}(k_y, k_z)
+    \\\\
+    &=
+    \sum_{n \in \Z}
+    \int_{\R^2}
+    \sqrt{
+        \left( \tfrac{\pi}{d} n \right)^2 +
+        \smash{\underbrace{
+            {k_y}^2 + {k_z}^2
+        }_{\rho^2}}
+    } \;
+    g(\varepsilon \, \sqrt{\left( \tfrac{\pi}{d} n \right)^2 +
+        \smash{\underbrace{
+            {k_y}^2 + {k_z}^2
+        }_{\rho^2}}
+    })
+    \d{k_y} \d{k_z}
+\end{align*}
+Provedeme přechod k polárním souřadnicím $(k_y, k_z) \mapsto (\rho, \theta)$ a následně substituci $\rho = \tfrac{\pi}{d} n \xi$.
+\begin{align*}
+    I &=
+    \sum_{n \in \Z} \;
+    \int_{\R}
+    \sqrt{
+        \left( \tfrac{\pi}{d} n \right)^2
+        \! + \rho^2
+    } \;
+    g(\varepsilon \, \sqrt{\left( \tfrac{\pi}{d} n \right)^2
+        \! + \rho^2
+    }) \;
+    4\pi \rho \d{\rho}
+    =
+    \sum_{n \in \Z} \;
+    \int_{\R}
+    \left( \tfrac{\pi}{d} n \right)^3
+    \sqrt{
+        1 + \xi^2
+    } \;
+    g\bigg(
+        \underbrace{
+            \varepsilon \, \big( \tfrac{\pi}{d} n \big)
+        }_{\varepsilon_n}
+        \sqrt{1 + \xi^2}
+    \bigg) \;
+    4\pi \xi \d{\xi}
+    \\\\
+    &=
+    \sum_{n \in \Z} \;
+    4\pi
+    \left( \tfrac{\pi}{d} n \right)^3
+    \int_{\R}
+    \xi
+    \sqrt{
+        1 + \xi^2
+    } \;
+    g\big(
+        \varepsilon_n
+        \sqrt{1 + \xi^2}
+    \big) \;
+    \d{\xi}
+\end{align*}
+
 
 
 \end{document}
