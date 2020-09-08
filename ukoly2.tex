@@ -11,6 +11,8 @@
 \usepackage{setspace}
 \usepackage{csvsimple}
 
+\usepackage{tipa} % \textscg
+
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{gensymb}
@@ -1974,7 +1976,7 @@ Doplňte odvození Casimirova jevu ve 3D, tedy vypočtěte tlak $p$ působící 
 \subsection{Řešení}
 Máme elektromagnetické pole dané vektorovým potenciálem $\vec A$, pro který platí
 \begin{equation*}
-    \left(\dd{^2}{t^2} - \nabla^2\right)
+    \left(\pd{^2}{t^2} - \nabla^2\right)
     \vec A(t, \vec r) = 0
     \: , \quad
     \vec\nabla \cdot \vec A(t, \vec r) = 0
@@ -2015,13 +2017,13 @@ Konkrétně požadujeme takové podmínky, že
     \: , \quad
     \vec n \in \Z^3
 \end{equation*}
-Je potřeba se ještě krátce zamyslet nad tím, zda je přiřazení $\vec n \mapsto \vec T$ jednoznačné. Zdálo by se, že některá řešení počítáme dvakrát, protože $\cos  \vec k \cdot \vec r$ jsou sudé funkce a $\sin \vec k \cdot \vec r$ jsou liché funkce, oproti tomu ale jedním číslem potřebujeme klasifikovat jak řešení s $\cos$, tak řešení se $\sin$ – nabízí se jednoduché řešení: kladným $n$ přiřadíme řešení s $\cos$, záporným $\sin$.
+Je potřeba se ještě krátce zamyslet nad tím, zda je přiřazení $\vec n \mapsto \vec T$ jednoznačné. Zdálo by se, že některá řešení počítáme dvakrát, protože $\cos  \vec k \cdot \vec r$ jsou sudé funkce a $\sin \vec k \cdot \vec r$ jsou liché funkce, oproti tomu ale jedním číslem potřebujeme klasifikovat jak řešení s $\cos$, tak řešení se $\sin$ – nabízí se jednoduché řešení: kladným $n$ přiřadíme řešení se $\sin$, záporným $\cos$. Podél osy $x$ nás ovšem zajímají pouze sinová řešení, omezíme se tedy na $\vec n \in \N \times \Z^2$.
 
 Hamiltonián takového pole je
 \begin{equation*}
     \hat H
     =
-    \sum_{\vec n \; \in \; \Z^3} \;
+    \sum_{\vec n \; \in \; \N \times \Z^2} \;
     \sum_{\lambda = 1, 2}
     \omega_{\vec k}
     \left(
@@ -2036,27 +2038,29 @@ Hamiltonián takového pole je
 Nás zajímají energie nulových kmitů, pro ty platí
 \begin{equation*}
     E_0 =
-    \sum_{\vec n \; \in \; \Z^3} \;
+    \sum_{\vec n \; \in \; \N \times \Z^2} \;
     \sum_{\vph{\vec k} \lambda = 1, 2}
     \frac{\omega_{\vec k}}{2}
     =
-    \sum_{\vec n \; \in \; \Z^3} \omega_{\vec k}
+    \sum_{\vec n \; \in \; \N \times \Z^2} \omega_{\vec k}
 \end{equation*}
 Taková řada zjevně diverguje, předpoklad dokonale vodivých desek je ale pravděpodobně příliš odvážný. Zavedeme tedy regularizační funkci, která bude pro vysoká $\omega_{\vec k}$ dostatečně rychle klesat.
 \begin{gather*}
-    g \in \mathcal{C}^2(\R)
+    g \in \mathcal{C}^2(\R^+)
     \: , \quad
     g(0) = 1
     \: , \quad
-    g \text{ je sudá, nezáporná a na $\R^+$ nerostoucí}
+    g \text{ je nezáporná a nerostoucí}
+    \: , \\
+    \lim_{n \to \infty} n^4 g(n) = 0
     \: , \quad
-    \lim_{n \to \infty} n^3 g(n) = 0
+    g \text{ je analytická na nějakém okolí nuly}
     \: .
 \end{gather*}
-Tedy $g(n)$ klesá rychleji než $n^{-3}$. Protože $\omega_{\vec k} \approx n$, dostáváme sumu $\sum n^{-2}$, která už konverguje. Dále zavedeme regularizační parametr $\varepsilon$ v dobré víře, že odvozený výsledek bude platit i pro téměř dokonalé vodiče a budeme moci regularizaci opět odstranit. Celková energie má potom tvar
+Tedy $g(n)$ klesá rychleji než $n^{-4}$. Protože $\omega_{\vec k} \approx n$, dostáváme sumu $\sum n^{-3}$, která už konverguje. Dále zavedeme regularizační parametr $\varepsilon$ v dobré víře, že odvozený výsledek bude platit i pro téměř dokonalé vodiče a budeme moci regularizaci opět odstranit. Celková energie má potom tvar
 \begin{gather*}
     E_0 =
-    \sum_{\vec n \in \Z^3}
+    \sum_{\vec n \; \in \; \N \times \Z^2}
     \omega_{\vec k} \;\;
     g(\varepsilon \, \omega_{\vec k})
 \end{gather*}
@@ -2073,25 +2077,25 @@ Protože restrikce na periodu $L$ je umělá a ve skutečnosti nás zajímá, co
         (n_y, n_z) \in \Z^2
     \right\}
 \end{gather*}
-Všimněme si, že pro rostoucí $L$ je $M_L$ čím dál hustějším pokrytím $\R$. Přesněji můžeme pozorovat, že pro funkci $f$, která v nekonečnu klesá dostatečně rychle, platí
+Všimněme si, že pro rostoucí $L$ je $M_L$ čím dál hustějším pokrytím $\R^2$. Přesněji, můžeme pozorovat, že pro funkci $f$, která v nekonečnu klesá dostatečně rychle, platí
 \begin{equation*}
     \int_{M_L} L^{-2} f(x, y) \d{\alpha}(x, y)
     \xrightarrow{\;L \to \infty\;}
     \int_{\R^2} f(x, y) \d{\lambda}(x, y)
     \: ,
 \end{equation*}
-kde $\alpha(M)$ je aritmetická míra a $\lambda(M)$ je Lebesgueova míra.
+kde $\alpha(M)$ je aritmetická míra a $\lambda(M)$ je Lebesgueova míra\footnote{\label{magicky-faktor}Ve výpočtu v přednášce se nějakým záhadným způsobem objeví ještě faktor $(4\pi)^{-2}$, který nám na konci výpočtu bude chybět. Strávil jsem nad tím hodiny a pořád jsem nepřišel na to, kde se vzal.}.
 
-Ještě než se pustíme do samotného výpočtu, je třeba si uvědomit, že energie mezi nekonečnými deskami bude zjevně nekonečná – je potřeba přejít k energii na jednotkovou plochu, tedy k intenzitě. Nyní už můžeme provést limitní přechod $L \to \infty$.
+Ještě než se pustíme do samotného výpočtu, je třeba si uvědomit, že energie mezi nekonečnými deskami bude zjevně nekonečná – je potřeba přejít k energii na jednotkovou plochu, tedy k plošné hustotě energie. Nyní už můžeme provést limitní přechod $L \to \infty$.
 \begin{align*}
     I = \frac{E_0}{L^2} &=
-    \sum_{\vec n \in \Z^3}
-    L^{-2} \;
-    \omega_{\vec k} \;\;
+    \mask{\;\sum\;\;}{\displaystyle \sum_{\vec n \, \in \, \N \times \Z^2}}
+    L^{-2} \,
+    \omega_{\vec k} \;
     g(\varepsilon \, \omega_{\vec k})
     =
-    \sum_{\vec n \in \Z^3}
-    L^{-2} \;
+    \mask{\;\sum\;\;}{\displaystyle \sum_{\vec n \, \in \, \N \times \Z^2}}
+    L^{-2} \!
     \underbrace{
         \sqrt{
             \left( \tfrac{\pi}{d} n_x \right)^2 +
@@ -2102,29 +2106,30 @@ Ještě než se pustíme do samotného výpočtu, je třeba si uvědomit, že en
         F(n_x, k_y, k_z)
     }
     =
-    \sum_{\vec n \in \Z^3} L^{-2} F(n_x, k_y, k_z)
+    \mask{\;\sum\;\;}{\displaystyle \sum_{\vec n \, \in \, \N \times \Z^2}}
+    L^{-2} F(n_x, k_y, k_z)
     \\\\
     &=
-    \sum_{n_x \in \Z} \;
+    \sum_{n_x \in \N} \;
     \sum_{(k_y, k_z) \in M_L}
     \hspace{-1em}
     L^{-2}
     F(n_x, k_y, k_z)
     =
-    \sum_{n_x \in \Z}
+    \sum_{n_x \in \N}
     \int_{M_L} \!\!
     L^{-2} F(n_x, k_y, k_z)
     \d{\alpha}(k_y, k_z)
     %
     \longrightarrow
     %
-    \sum_{n_x \in \Z}
+    \sum_{n_x \in \N}
     \int_{\R^2}
     F(n_x, k_y, k_z)
     \d{\lambda}(k_y, k_z)
     \\\\
     &=
-    \sum_{n \in \Z}
+    \sum_{n = 1}^\infty
     \int_{\R^2}
     \sqrt{
         \left( \tfrac{\pi}{d} n \right)^2 +
@@ -2139,11 +2144,11 @@ Ještě než se pustíme do samotného výpočtu, je třeba si uvědomit, že en
     })
     \d{k_y} \d{k_z}
 \end{align*}
-Provedeme přechod k polárním souřadnicím $(k_y, k_z) \mapsto (\rho, \theta)$ a následně substituci $\rho = \tfrac{\pi}{d} n \xi$.
+Následuje technická pasáž, kdy nám jde pouze o upravení integrálu do co nejjednodušší formy. Nejprve provedeme přechod k polárním souřadnicím $(k_y, k_z) \mapsto (\rho, \theta)$, následně substituci $\rho \eqqcolon \tfrac{\pi}{d} n \xi$ a poté substituci $\zeta \coloneqq \sqrt{1 + \xi^2}$.
 \begin{align*}
     I &=
-    \sum_{n \in \Z} \;
-    \int_{\R}
+    \sum_{n = 1}^\infty \;
+    \int_0^\infty
     \sqrt{
         \left( \tfrac{\pi}{d} n \right)^2
         \! + \rho^2
@@ -2153,8 +2158,8 @@ Provedeme přechod k polárním souřadnicím $(k_y, k_z) \mapsto (\rho, \theta)
     }) \;
     4\pi \rho \d{\rho}
     =
-    \sum_{n \in \Z} \;
-    \int_{\R}
+    \sum_{n = 1}^\infty \;
+    \int_0^\infty
     \left( \tfrac{\pi}{d} n \right)^3
     \sqrt{
         1 + \xi^2
@@ -2168,21 +2173,454 @@ Provedeme přechod k polárním souřadnicím $(k_y, k_z) \mapsto (\rho, \theta)
     4\pi \xi \d{\xi}
     \\\\
     &=
-    \sum_{n \in \Z} \;
+    \sum_{n = 1}^\infty \;
     4\pi
     \left( \tfrac{\pi}{d} n \right)^3
-    \int_{\R}
+    \int_0^\infty
     \xi
-    \sqrt{
-        1 + \xi^2
-    } \;
+    \underbrace{ \sqrt{ 1 + \xi^2} }_{\zeta} \;
     g\big(
         \varepsilon_n
-        \sqrt{1 + \xi^2}
+        \underbrace{ \sqrt{ 1 + \xi^2} }_{\zeta}
     \big) \;
     \d{\xi}
+    =
+    \sum_{n = 1}^\infty \;
+    4\pi
+    \left( \tfrac{\pi}{d} n \right)^3
+    \int_1^\infty
+    \xi \, \zeta \,
+    g( \varepsilon_n \, \zeta ) \;
+    \frac{1}{(\sqrt{1 + \xi^2})'}
+    \d{\zeta}
+    \\\\
+    &=
+    \sum_{n=1}^\infty \;
+    4\pi
+    \left( \tfrac{\pi}{d} n \right)^3
+    \underbrace{
+        \int_1^\infty
+        \zeta^2 \,
+        g( \varepsilon_n \, \zeta ) \;
+        \d{\zeta}
+    }_{J}
 \end{align*}
 
+Integrál $J$ jsme zjednodušili do nejvhodnějšího možného tvaru, nyní stačí provést výpočet \textit{per partes}. Pro přehlednost výpočtu vynecháme člen $\varepsilon_n$ v argumentu funkce $g$, který po výpočtu opět doplníme.
+\begin{align*}
+    J &=
+    \int_1^\infty x^2 g(x) \d{x}
+    \\
+    &= \left[ x^2 \text{\textscg}(x) \right]_1^\infty
+    - \int_1^\infty 2x \, \text{\textscg}(x) \d{x}
+    \\
+    &= \left[ x^2 \text{\textscg}(x) \right]_1^\infty
+    - 2 \left[ x \, G(x) \right]_1^\infty
+    + 2 \int_1^\infty G(x) \d{x}
+    \\
+    &= \left[ x^2 \text{\textscg}(x) \right]_1^\infty
+    - 2 \left[ x \, G(x) \right]_1^\infty
+    + 2 \left[ \Gamma(x) \right]_1^\infty
+\end{align*}
+\begin{gather*}
+    \Gamma'''(x) = G''(x) = \text{\textscg}'(x) = g(x)
+\end{gather*}
+Z definice $g$ máme zaručeno, že se v nekonečnu chová alespoň jako $g \approx n^{-4}$, všechny tři členy budou tedy v nekonečnu nulové. Doplníme do argumentu $\varepsilon_n$ a vypočteme výsledek.
+\begin{align*}
+    J &=
+    \varepsilon_n^{\;-1}
+    \left[ x^2 \text{\textscg}(\varepsilon_n \, x) \right]_1^\infty
+    - 2 \varepsilon_n^{\;-2}
+    \left[ x \, G(\varepsilon_n \, x) \right]_1^\infty
+    + 2 \varepsilon_n^{\;-3}
+    \left[ \Gamma(\varepsilon_n \, x) \right]_1^\infty
+    \\[5pt]
+    &=
+    - \varepsilon_n^{\;-1} \,
+    \text{\textscg}(\varepsilon_n)
+    + 2 \varepsilon_n^{\;-2} \,
+    G(\varepsilon_n)
+    - 2 \varepsilon_n^{\;-3} \,
+    \Gamma(\varepsilon_n)
+\end{align*}
+Zajímá nás chování $I(\varepsilon_n)$ v okolí nuly, proto použijeme Taylorův rozvoj $g$. Platí:
+\begin{align*}
+    g(x)
+    &=
+    a_0 + a_1 x + a_2 x^2 + O(x^3)
+    \\[5pt]
+    x^{-1} \, \text{\textscg}(x)
+    &=
+    a_0 + \frac{a_1}{2} x + \frac{a_2}{3} x^2 + O(x^3)
+    \\[5pt]
+    x^{-2} \, G(x)
+    &=
+    \frac{a_0}{2} + \frac{a_1}{6} x + \frac{a_2}{12} x^2 + O(x^3)
+    \\[5pt]
+    x^{-3} \, \Gamma(x)
+    &=
+    \frac{a_0}{6} + \frac{a_1}{24} x + \frac{a_2}{60} x^2 + O(x^3)
+\end{align*}
+\begin{gather*}
+    J(x) =
+    \left( -1 + \frac{2}{2} - \frac{2}{6} \right)
+    a_0
+    +
+    \left( -\frac{1}{2} + \frac{2}{6} - \frac{2}{24} \right)
+    a_1 \, x
+    +
+    \left( -\frac{1}{6} + \frac{2}{24} - \frac{2}{60} \right)
+    a_2 x^2
+    + O(x^3)
+    \\\\
+    J(\varepsilon_n)
+    =
+    -\frac{1}{3} a_0
+    -\frac{1}{4} a_1 \, \varepsilon_n
+    -\frac{7}{60} a_2 \, {\varepsilon_n}^2
+    + O({\varepsilon_n}^3)
+\end{gather*}
 
+Tímto, nebo podobným způsobem by jistě bylo možné vyřešit úlohu s obecnou regularizační funkcí $g$. Z důvodu časové tísně se ovšem autor nakonec rozhodl zvolit konkrétní regularizační funkci, a to:
+\begin{gather*}
+    g(x) = \e{-x}
+    \: , \quad
+    x \in [0, \infty)
+    \: .
+\end{gather*}
+Můžeme tedy dosadit do $J$ (ještě před použitím Taylorova rozvoje), dostaneme:
+\begin{equation*}
+    J =
+    \frac{2}{{\varepsilon_n}^3}
+    \big( {\varepsilon_n}^2 + 2\varepsilon_n + 2 \big)
+    \; \e{-\varepsilon_n}
+\end{equation*}
+Dosadíme zpět do $I$:
+\begin{align*}
+    I &=
+    \sum_{n=1}^\infty \;
+    4\pi
+    \left( \tfrac{\pi}{d} n \right)^3
+    \frac{2}{{\varepsilon_n}^3}
+    \big( {\varepsilon_n}^2 + 2\varepsilon_n + 2 \big)
+    \; \e{-\varepsilon_n}
+    =
+    \underbrace{
+        \sum_{n=1}^\infty \;
+        4\pi
+        \frac{2}{\varepsilon^3}
+        \big( {\varepsilon}^2 \left( \tfrac{\pi}{d} n \right)^2 + 2\varepsilon \left( \tfrac{\pi}{d} n \right) + 2 \big)
+        \; \e{-\varepsilon \tfrac{\pi}{d} n}
+    }_\text{konverguje stejnoměrně}
+    \\\\
+    &=
+    \sum_{n=1}^\infty \;
+    4\pi
+    \frac{2}{\varepsilon^3}
+    \big( {\varepsilon}^2 \pd{^2}{\varepsilon^2}\! - 2\varepsilon \pd{}{\varepsilon}\! + 2 \big)
+    \; \e{-\varepsilon \tfrac{\pi}{d} n}
+    =
+    4\pi
+    \frac{2}{\varepsilon^3}
+    \big( {\varepsilon}^2 \pd{^2}{\varepsilon^2}\! - 2\varepsilon \pd{}{\varepsilon}\! + 2 \big)
+    \; \sum_{n=1}^\infty
+    \; \e{-\varepsilon \tfrac{\pi}{d} n}
+    \\\\
+    &=
+    4\pi
+    \frac{2}{\varepsilon^3}
+    \big( {\varepsilon}^2 \pd{^2}{\varepsilon^2}\! - 2\varepsilon \pd{}{\varepsilon}\! + 2 \big)
+    \; \sum_{n=1}^\infty
+    \; \e{-\varepsilon \tfrac{\pi}{d} n}
+    =
+    4\pi
+    \frac{2}{\varepsilon^3}
+    \big( {\varepsilon}^2 \pd{^2}{\varepsilon^2}\! - 2\varepsilon \pd{}{\varepsilon}\! + 2 \big)
+    \; \frac{1}{\e{\frac{\varepsilon \pi}{d}} - 1}
+\end{align*}
+Použili jsme fakt, že sčítaný výraz jako funkce $\varepsilon$ konverguje lokálně stejnoměrně na $(0, \infty)$ při $n\to\infty$. Proto můžeme zaměnit pořadí sumy a derivace pro $\varepsilon \geq \kappa \in \R^+$. Řadu jsme sečetli vzorcem pro součet geometrické řadu. Protože nás zajímá chování kolem $\varepsilon \to 0$, vyjádříme si funkci jako Laurentovu řadu v nule. Dá se ukázat\footnote{viz např. \url{https://math.stackexchange.com/a/3394367/142487}}, že
+\begin{align*}
+    h(z) \coloneqq
+    \frac{1}{\e{z} - 1}
+    &=
+    \frac{1}{z} +
+    \sum_{k=0}^\infty \;
+    \frac{B_{k+1}}{(k+1)!} \;
+    z^k
+    \: ,
+\end{align*}
+kde $B_k$ jsou Bernouliho čísla: $B_1 = -\frac{1}{2}, \; B_2 = \frac{1}{6}, \; B_3 = 0, \; B_4 = -\frac{1}{30}$ atd. S pomocí tohoto vyjádření vypočteme požadované derivace.
+\begin{align*}
+    &
+    \bigg(
+        \frac{1}{z} \pd{^2}{z^2}
+        - \frac{2}{z^2} \pd{}{z}
+        + \frac{2}{z^3}
+    \bigg)
+    \; h(\alpha z)
+    =
+    \bigg(
+        \frac{1}{z} \pd{^2}{z^2}
+        - \frac{2}{z^2} \pd{}{z}
+        + \frac{2}{z^3}
+    \bigg)
+    \bigg(
+        \frac{1}{\alpha z} +
+        \sum_{k=0}^\infty \;
+        \frac{B_{k+1}}{(k+1)!} \;
+        (\alpha z)^k
+    \bigg)
+    \\\\
+    &\hspace{1em}
+    =
+    \frac{(-1)(-2) - 2(-1) + 2}{\alpha z^4}
+    +
+    \frac{1}{z}
+    \sum_{k=0}^\infty
+    (k+1)(k+2)
+    \frac{B_{k+3} \, \alpha^{k+2}}{(k+3)!} \;
+    z^k
+    -
+    \frac{2}{z^2}
+    \sum_{k=0}^\infty
+    (k+1)
+    \frac{B_{k+2} \, \alpha^{k+1}}{(k+2)!} \;
+    z^k
+    +
+    \frac{2}{z^3}
+    \sum_{k=0}^\infty \;
+    \frac{B_{k+1} \, \alpha^k}{(k+1)!} \;
+    z^k
+    \\\\
+    &\hspace{1em}
+    =
+    \frac{6}{\alpha z^4}
+    +
+    \sum_{k=0}^\infty \;
+    \frac{\alpha^{k+2} \, B_{k+3}}{k!(k+3)} \;
+    z^{k-1}
+    +
+    \sum_{k=0}^\infty \;
+    \frac{-2 \alpha^{k+1} \, B_{k+2}}{k!(k+2)} \;
+    z^{k-2}
+    +
+    \sum_{k=0}^\infty \;
+    \frac{2\alpha^k \, B_{k+1}}{(k+1)!} \;
+    z^{k-3}
+    \\\\
+    &\hspace{1em}
+    =
+    \frac{6}{\alpha z^4}
+    +
+    \frac{2 B_1}{z^3}
+    +
+    \frac{-2 \alpha B_2}{3 z^2}
+    +
+    \frac{2 \alpha B_2}{3 z^2}
+    +
+    \sum_{k=0}^\infty \;
+    \frac{\alpha^{k+2} \, B_{k+3}}{k!(k+3)} \;
+    z^{k-1}
+    +
+    \sum_{k=1}^\infty \;
+    \frac{-2 \alpha^{k+1} \, B_{k+2}}{k!(k+2)} \;
+    z^{k-2}
+    +
+    \sum_{k=2}^\infty \;
+    \frac{2\alpha^k \, B_{k+1}}{(k+1)!} \;
+    z^{k-3}
+    \\\\
+    &\hspace{1em}
+    =
+    \frac{6}{\alpha z^4}
+    -
+    \frac{1}{z^3}
+    +
+    \sum_{k=-1}^\infty \;
+    \frac{\alpha^{k+3} \, B_{k+4}}{(k+1)!(k+4)} \;
+    z^k
+    +
+    \sum_{k=-1}^\infty \;
+    \frac{-2 \alpha^{k+3} \, B_{k+4}}{(k+2)!(k+4)} \;
+    z^k
+    +
+    \sum_{k=-1}^\infty \;
+    \frac{2\alpha^{k+3} \, B_{k+4}}{(k+4)!} \;
+    z^k
+    \\\\
+    &\hspace{1em}
+    =
+    \frac{6}{\alpha z^4}
+    -
+    \frac{1}{z^3}
+    +
+    \sum_{k=-1}^\infty
+    \bigg(
+        \frac{1}{(k+1)!(k+4)} +
+        \frac{-2}{(k+2)!(k+4)} +
+        \frac{1}{(k+4)!}
+    \bigg)
+    \, \alpha^{k+3} \, B_{k+4} \, z^k
+    \\\\
+    &\hspace{1em}
+    =
+    \frac{6}{\alpha z^4}
+    -
+    \frac{1}{z^3}
+    +
+    \sum_{k=-1}^\infty
+    \frac{k^2 + 3k + 1}{(k+4)!}
+    \, \alpha^{k+3} \, B_{k+4} \, z^k
+    =
+    \frac{6}{\alpha z^4}
+    -
+    \frac{1}{z^3}
+    +
+    \underbrace{(...) B_3}_0
+    +
+    \frac{\alpha^3 B_4}{4!}
+    +
+    \sum_{k=1}^\infty
+    \frac{k^2 + 3k + 1}{(k+4)!}
+    \, \alpha^{k+3} \, B_{k+4} \, z^k
+    \\\\
+    &\hspace{1em}
+    =
+    \frac{6}{\alpha z^4}
+    -
+    \frac{1}{z^3}
+    -
+    \frac{\alpha^3}{360}
+    +
+    \sum_{k=1}^\infty
+    \frac{k^2 + 3k + 1}{(k+4)!}
+    \, \alpha^{k+3} \, B_{k+4} \, z^k
+\end{align*}
+Dosadíme zpět do $I$:
+\begin{align*}
+    I(\varepsilon, d)
+    = 8 \pi \big(
+        \frac{d}{\pi} \frac{6}{\varepsilon^4}
+        - \frac{1}{\varepsilon^3}
+        - \frac{\pi^3}{d^3} \frac{1}{360}
+        + O(\varepsilon)
+    \big)
+    = \frac{48 d}{\varepsilon^4}
+    - \frac{8 \pi}{\varepsilon^3}
+    + \frac{\pi^4}{45 d^2}
+    + O(\varepsilon)
+\end{align*}
+Tlak mezi deskmi můžeme vypočítat jako
+\begin{equation*}
+    p
+    = \frac{1}{S} \, F
+    = \frac{1}{S} \pd{E}{d}
+    = \pd{}{d} \frac{E}{S}
+    = \pd{}{d} I
+    \: ,
+\end{equation*}
+tedy
+\begin{align*}
+    p(\varepsilon, d)
+    = \pd{}{d} \big(
+        \frac{48 d}{\varepsilon^4}
+        - \frac{8 \pi}{\varepsilon^3}
+        + \frac{\pi^4}{45 d^2}
+        + O(\varepsilon)
+    \big)
+    =
+    \frac{48}{\varepsilon^4}
+    - \frac{2\pi^4}{45 d^3}
+    + O(\varepsilon)
+\end{align*}
+Tento tlak vyjde pro dokonalé vodiče ($\varepsilon \to 0$) nekonečný. Ukazuje se ovšem, že dostaneme konečné číslo, pokud uvážíme tři desky – dvě pevné ve vzdálenosti $D$ a jednu pohyblivou mezi nimi, ve vzdálenosti $d$ od první, přičemž $0 < d \ll D$.
+\begin{align*}
+    I_3(\varepsilon, d, D)
+    \coloneqq I(\varepsilon, d) + I(\varepsilon, D - d)
+\end{align*}
+\begin{align*}
+    I_3
+    &=
+    \big(
+        \frac{48 d}{\varepsilon^4}
+        - \frac{8 \pi}{\varepsilon^3}
+        + \frac{\pi^4}{45 d^2}
+        + O(\varepsilon)
+    \big)
+    +
+    \big(
+        \frac{48 (D - d)}{\varepsilon^4}
+        - \frac{8 \pi}{\varepsilon^3}
+        + \frac{\pi^4}{45 (D-d)^2}
+        + O(\varepsilon)
+    \big)
+    \\\\
+    &=
+    \frac{48 D}{\varepsilon^4}
+    - \frac{16 \pi}{\varepsilon^3}
+    + \frac{\pi^4}{45}
+    \big( \frac{1}{d^2} + \frac{1}{(D-d)^2} \big)
+    + O(\varepsilon)
+\end{align*}
+Pro tuto hustotu energie bude tlak zjevně konečný.
+\begin{align*}
+    p(\varepsilon, d, D)
+    &=
+    \pd{}{d}
+    \bigg(
+        \frac{48 D}{\varepsilon^4}
+        - \frac{16 \pi}{\varepsilon^3}
+        + \frac{\pi^4}{45}
+        \big( \frac{1}{d^2} + \frac{1}{(D-d)^2} \big)
+        + O(\varepsilon)
+    \bigg)
+    = \frac{\pi^4}{45} \; \pd{}{d} \big( \frac{1}{d^2} + \frac{1}{(D-d)^2} \big) + O(\varepsilon)
+    \\\\
+    &=
+    \frac{2\pi^4}{45} \big(
+        -\frac{1}{d^3} + \frac{1}{(D-d)^3}
+    \big) + O(\varepsilon)
+\end{align*}
+Nyní můžeme poslat $\varepsilon \to 0$ a $D \to \infty$. Dostaneme:
+\begin{align*}
+    p(d) =
+    \varpi
+    \lim_{\varepsilon\to 0} \lim_{D\to\infty}
+    p(\varepsilon, d, D)
+    =
+    -\frac{\pi^2}{720} \;
+    \frac{1}{d^3}
+    \: ,
+\end{align*}
+kde $\varpi = (4\pi)^{-2}$ je magický faktor, který se někde vytratil oproti přednášce (viz poznámka \ref{magicky-faktor}). Tento výsledek je v souladu s odvozením ukázaným na přednášce, ale v rozporu například s výsledkem odvození na Wikipedii\footnote{dostupné na \url{https://en.wikipedia.org/wiki/Casimir_effect\#Derivation_of_Casimir_effect_assuming_zeta-regularization}}, kde je $-\pi^2 / 720 d^3$ \textit{energie} systému a tlak je derivace z toho, tedy $-\pi^2 / 240 d^4$.
+
+
+\section{Ramseyho interference}
+\subsection{Zadání}
+Je zadaný hamiltonián systému
+\begin{equation*}
+    \hat H
+    = \omega_c \hat a^+ \hat a
+    + \omega_a \hat S_z
+    - \frac{\Omega}{2}
+    \big( \hat a \hat S_+ + \hat a^+ \hat S_- \big)
+    \: ,
+\end{equation*}
+kde $\hat S$ je operátor spinu $\nicefrac{1}{2}$.  Nalezněte stacionární stavy a jim odpovídající energetické hladiny.
+
+\subsection{Řešení}
+Budeme pracovat v součinové bázi
+\begin{equation*}
+    \ket{\pm n} = \ket{\pm} \otimes \ket{n} \: ,
+\end{equation*}
+přičemž
+\begin{gather*}
+    \hat S_z \ket{\pm n} = \pm \ket{\pm n} \: , \quad
+    \hat S_\pm \ket{\pm n} = 0 \: , \quad
+    \hat S_\pm \ket{\mp n} = \ket{\pm n} \: , \\
+    \hat a \ket{\pm n} = \oldsqrt{n} \ket{\pm (n-1)} \: , \quad
+    \hat a \ket{\pm 0} = 0 \: , \quad
+    \hat a^+ \ket{\pm n} = \sqrt{n+1} \ket{\pm (n+1)} \: .
+\end{gather*}
 
 \end{document}
