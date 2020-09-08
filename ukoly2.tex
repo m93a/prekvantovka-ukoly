@@ -2622,5 +2622,38 @@ přičemž
     \hat a \ket{\pm 0} = 0 \: , \quad
     \hat a^+ \ket{\pm n} = \sqrt{n+1} \ket{\pm (n+1)} \: .
 \end{gather*}
+Vypočteme působení hamiltoniánu na stavy $\ket{+n}$ a $\ket{-(n+1)}$:
+\begin{align*}
+    \hat H \ket{+n} &= \big( \omega_c n + \frac{\omega_a}{2} \big) \ket{+n} + \frac{\Omega}{2} \sqrt{n+1} \ket{-(n+1)}
+    \\
+    \hat H \ket{-(n+1)} &= \frac{\Omega}{2} \sqrt{n+1} \ket{+n} + \big( \omega_c n + \frac{\omega_a}{2} \big) \ket{-(n+1)}
+\end{align*}
+Vidíme, že je hamiltonián blokově diagonální, stačí diagonalizovat jednotlivé podprostory $V_n = \Span \left\{ \ket{+n}, \; \ket{-(n+1)} \right\}$.
+\begin{align*}
+    M_n = \mat{
+        \omega_c n + \dfrac{\omega_a}{2}
+        & \dfrac{\Omega}{2} \sqrt{n+1}
+        \\[10pt]
+        \dfrac{\Omega}{2} \sqrt{n+1} &
+        \omega_c n - \dfrac{\omega_a}{2}
+    }
+    \: , \quad
+    0 = |M - \lambda \1| =
+    \big( \omega_c n + \frac{\omega_a}{2} - \lambda \big)
+    \big( \omega_c n - \frac{\omega_a}{2} - \lambda \big)
+    \frac{\Omega^2}{2} (n+1)
+\end{align*}
+Vyřešením dostaneme pro každé $n$ dvě energetické hladiny:
+\begin{equation*}
+    E_{\pm n} =
+    \frac{\omega_c (1+2n)}{2}
+    \pm
+    \frac{1}{2}
+    \sqrt{
+        (\omega_c - \omega_a)^2 +
+        \Omega^2 (n+1)
+    }
+    \: .
+\end{equation*}
 
 \end{document}
